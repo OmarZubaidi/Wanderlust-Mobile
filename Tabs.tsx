@@ -12,7 +12,7 @@ import {
   HotelIcon,
   MapIcon,
 } from './components/Icons';
-import { colorStyles } from './styles';
+import { tabStyles } from './styles';
 
 const BottomTabs = createBottomTabNavigator();
 
@@ -28,25 +28,7 @@ interface TabProps {
 
 function options({ route }: OptionsProps) {
   return {
-    headerStyle: {
-      backgroundColor: colorStyles.mainBlue,
-    },
-    headerTitleStyle: {
-      color: colorStyles.darkTextColor,
-      fontSize: 24,
-      marginBottom: 10,
-    },
-    tabBarStyle: {
-      backgroundColor: colorStyles.mainBlue,
-    },
-    headerTitle: 'Wanderlust',
-    tabBarActiveTintColor: colorStyles.white,
-    tabBarInactiveTintColor: colorStyles.darkTextColor,
-    tabBarItemStyle: {
-      marginTop: 10,
-      paddingBottom: 10,
-      height: 45,
-    },
+    ...tabStyles,
     tabBarIcon: ({ color }: TabProps) => {
       switch (route.name) {
         case 'Calendar':
