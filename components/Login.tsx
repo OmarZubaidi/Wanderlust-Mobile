@@ -20,11 +20,11 @@ async function getUserDetails(accessToken, setUserEmail) {
   }
 }
 
-interface Props {
+interface IProps {
   route: any;
 }
 
-function Login({ route }: Props) {
+function Login({ route }: IProps) {
   const { setUserEmail } = route.params;
 
   const [request, response, promptAsync] = Google.useAuthRequest({
@@ -38,7 +38,12 @@ function Login({ route }: Props) {
   }, [response]);
 
   return (
-    <View style={styles.container}>
+    <View
+      style={[
+        styles.container,
+        { alignItems: 'center', justifyContent: 'center' },
+      ]}
+    >
       <TouchableOpacity onPress={() => promptAsync()}>
         <Text>Log in / Sign up</Text>
       </TouchableOpacity>
