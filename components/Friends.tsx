@@ -21,11 +21,12 @@ function Friends({ friends, size }: IProps) {
         },
       ]}
     >
-      {/* TODO styling */}
-      {numberOfFriends > 5 && <Text>+</Text>}
+      {numberOfFriends > 5 && <Text style={[friendStyles.more]}>+</Text>}
+      {/* Update key later depending on downloaded data */}
       {displayedFriends.map((friend, index) => {
         return (
           <Image
+            key={index}
             source={{ uri: friend }}
             style={[
               friendStyles.photo,

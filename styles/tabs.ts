@@ -3,8 +3,7 @@ import colors from './colors';
 export default {
   headerStyle: {
     backgroundColor: colors.lightSkyBlue,
-    borderBottomLeftRadius: 15,
-    borderBottomRightRadius: 15,
+    borderBottomColor: colors.lightSkyBlue,
   },
   headerTitleStyle: {
     color: colors.blackish,
@@ -12,11 +11,10 @@ export default {
   },
   tabBarStyle: {
     backgroundColor: colors.lightSkyBlue,
-    borderTopLeftRadius: 15,
-    borderTopRightRadius: 15,
+    borderTopColor: colors.lightSkyBlue,
   },
   headerTitle: 'Wanderlust',
-  headerTitleAlign: 'center',
+  headerTitleAlign: 'start',
   tabBarActiveTintColor: colors.white,
   tabBarInactiveTintColor: colors.blackish,
   tabBarItemStyle: {
