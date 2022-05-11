@@ -2,11 +2,11 @@ import React from 'react';
 import { Svg, Path } from 'react-native-svg';
 import { iconStyles } from '../../styles';
 
-interface Props {
+interface IProps {
   color: string;
 }
 
-function CalendarIcon({ color }: Props) {
+function CalendarIcon({ color }: IProps) {
   return (
     <Svg
       width={iconStyles.size}

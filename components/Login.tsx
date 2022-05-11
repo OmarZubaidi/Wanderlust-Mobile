@@ -20,11 +20,11 @@ async function getUserDetails(accessToken, setUserEmail) {
   }
 }
 
-interface Props {
+interface IProps {
   route: any;
 }
 
-function Login({ route }: Props) {
+function Login({ route }: IProps) {
   const { setUserEmail } = route.params;
 
   const [request, response, promptAsync] = Google.useAuthRequest({

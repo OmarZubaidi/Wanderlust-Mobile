@@ -3,12 +3,11 @@ import { Login } from '../components';
 
 const Stack = createStackNavigator();
 
-interface Props {
-  name: string | null;
-  setName: Function;
+interface IProps {
+  setUserEmail: Function;
 }
 
-function LoginScreen({ setUserEmail }: Props) {
+function LoginScreen({ setUserEmail }: IProps) {
   return (
     <Stack.Navigator>
       <Stack.Screen

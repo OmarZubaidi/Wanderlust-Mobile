@@ -16,20 +16,20 @@ import { tabStyles } from './styles';
 
 const BottomTabs = createBottomTabNavigator();
 
-interface OptionsProps {
+interface IOptionsProps {
   route: {
     name: 'Calendar' | 'Map' | 'Flight' | 'Hotel';
   };
 }
 
-interface TabProps {
+interface ITabProps {
   color: 'string';
 }
 
-function options({ route }: OptionsProps) {
+function options({ route }: IOptionsProps) {
   return {
     ...tabStyles,
-    tabBarIcon: ({ color }: TabProps) => {
+    tabBarIcon: ({ color }: ITabProps) => {
       switch (route.name) {
         case 'Calendar':
           return <CalendarIcon color={color} />;
