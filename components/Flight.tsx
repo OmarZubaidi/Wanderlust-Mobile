@@ -94,7 +94,7 @@ function Flight() {
       <ImageBackground
         source={require('../assets/flight.jpg')}
         resizeMode='cover'
-        style={[imageStyles.image]}
+        style={[imageStyles.background]}
       >
         <View style={[styles.container]}>
           <FlatList

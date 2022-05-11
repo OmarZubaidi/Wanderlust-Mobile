@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
-  image: {
+  background: {
     flex: 1,
     justifyContent: 'center',
   },

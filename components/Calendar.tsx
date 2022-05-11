@@ -9,7 +9,7 @@ function Calendar() {
       <ImageBackground
         source={require('../assets/beach.png')}
         resizeMode='cover'
-        style={[imageStyles.image]}
+        style={[imageStyles.background]}
       >
         <View style={[styles.container]}>
           <Text>Map</Text>
