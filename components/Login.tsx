@@ -1,24 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { Alert, Text, TouchableOpacity, View } from 'react-native';
-import * as Google from 'expo-auth-session/providers/google';
 import * as WebBrowser from 'expo-web-browser';
-import axios from 'axios';
-import ENV from '../config/env';
 import { styles } from '../styles';
+import AuthContext from '../context/authContext';
 
 WebBrowser.maybeCompleteAuthSession();
-
-async function getUserDetails(accessToken, setUserEmail) {
-  try {
-    const response = await axios.get(
-      `https://www.googleapis.com/oauth2/v3/userinfo?access_token=${accessToken}`
-    );
-    setUserEmail(response.data.email);
-  } catch (error) {
-    console.log(error);
-    Alert.alert("Couldn't log in", 'Please try again.');
-  }
-}
 
 interface IProps {
   route: any;
@@ -27,9 +13,8 @@ interface IProps {
 function Login({ route }: IProps) {
   const { setUserEmail } = route.params;
 
-  const [request, response, promptAsync] = Google.useAuthRequest({
-    expoClientId: ENV.googleClientId,
-  });
+  const { getUserDetails, request, response, promptAsync } =
+    useContext(AuthContext);
 
   useEffect(() => {
     if (response && response.type === 'success') {
