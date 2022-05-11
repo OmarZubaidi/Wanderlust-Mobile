@@ -1,11 +1,22 @@
-import { Text, View } from 'react-native';
-import { styles } from '../styles';
+import React from 'react';
+import { ImageBackground, Text, View } from 'react-native';
+import { imageStyles, styles } from '../styles';
+import TripOverview from './TripOverview';
 
 function Calendar() {
   return (
-    <View style={[styles.container]}>
-      <Text>Calendar!</Text>
-    </View>
+    <>
+      <ImageBackground
+        source={require('../assets/beach.png')}
+        resizeMode='cover'
+        style={[imageStyles.image]}
+      >
+        <View style={[styles.container]}>
+          <Text>Map</Text>
+        </View>
+        <TripOverview />
+      </ImageBackground>
+    </>
   );
 }
 
