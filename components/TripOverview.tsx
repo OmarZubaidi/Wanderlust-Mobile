@@ -1,7 +1,8 @@
 import React from 'react';
-import { FlatList, Image, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 import { convertDateToDay } from '../helpers';
 import { tripOverviewStyles } from '../styles';
+import Friends from './Friends';
 
 const TRIP = {
   destination: 'Barcelona',
@@ -10,7 +11,7 @@ const TRIP = {
   friends: [16, 15, 14, 13],
 };
 
-const IMAGES = [
+const FRIENDS_IMAGES = [
   'http://alloutput.com/wp-content/uploads/2013/11/black-circle-mask-to-fill-compass-outline.png',
   'https://freepngimg.com/thumb/shape/29779-8-circle-file.png',
   'https://pngimg.com/uploads/circle/circle_PNG12.png',
@@ -29,17 +30,7 @@ function TripOverview() {
         </Text>
       </View>
       <View>
-        <FlatList
-          data={IMAGES}
-          horizontal
-          keyExtractor={(item) => item}
-          renderItem={({ item }) => (
-            <Image
-              source={{ uri: item }}
-              style={[tripOverviewStyles.friends]}
-            />
-          )}
-        />
+        <Friends friends={FRIENDS_IMAGES} size={40} />
       </View>
     </View>
   );

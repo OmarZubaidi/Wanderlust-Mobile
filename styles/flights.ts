@@ -9,9 +9,7 @@ export default StyleSheet.create({
     padding: 10,
     marginVertical: 10,
     alignItems: 'center',
-    alignSelf: 'center',
-    justifyContent: 'space-evenly',
-    width: '97.5%',
+    justifyContent: 'space-between',
     borderRadius: 15,
   },
   centerContent: {

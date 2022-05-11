@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native';
 import colors from './colors';
+import friends from './friends';
 
 export default StyleSheet.create({
   container: {
@@ -22,13 +23,5 @@ export default StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 24,
     color: colors.darkestBlue,
-  },
-  friendsContainer: {
-    alignSelf: 'flex-end',
-  },
-  friends: {
-    alignSelf: 'center',
-    width: 40,
-    height: 40,
   },
 });

@@ -38,7 +38,12 @@ function Login({ route }: IProps) {
   }, [response]);
 
   return (
-    <View style={styles.container}>
+    <View
+      style={[
+        styles.container,
+        { alignItems: 'center', justifyContent: 'center' },
+      ]}
+    >
       <TouchableOpacity onPress={() => promptAsync()}>
         <Text>Log in / Sign up</Text>
       </TouchableOpacity>
