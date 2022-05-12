@@ -11,16 +11,9 @@ interface IProps {
 }
 
 function Login({ route }: IProps) {
-  const { setUserEmail } = route.params;
+  const { userEmail, setUserEmail } = route.params;
 
-  const { getUserDetails, request, response, promptAsync } =
-    useContext(AuthContext);
-
-  useEffect(() => {
-    if (response && response.type === 'success') {
-      getUserDetails(response.authentication.accessToken, setUserEmail);
-    }
-  }, [response]);
+  const { login, promptAsync } = useContext(AuthContext);
 
   return (
     <View
@@ -29,7 +22,7 @@ function Login({ route }: IProps) {
         { alignItems: 'center', justifyContent: 'center' },
       ]}
     >
-      <TouchableOpacity onPress={() => promptAsync()}>
+      <TouchableOpacity onPress={() => login()}>
         <Text>Log in / Sign up</Text>
       </TouchableOpacity>
     </View>
