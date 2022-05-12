@@ -82,7 +82,7 @@ function Hotel() {
       <ImageBackground
         source={require('../assets/hotel.jpg')}
         resizeMode='cover'
-        style={[imageStyles.image]}
+        style={[imageStyles.background]}
       >
         <View style={[styles.container]}>
           <FlatList

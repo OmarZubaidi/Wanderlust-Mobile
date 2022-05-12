@@ -1,6 +1,5 @@
 import { StyleSheet } from 'react-native';
 import colors from './colors';
-import friends from './friends';
 
 export default StyleSheet.create({
   container: {
