@@ -15,6 +15,8 @@ import {
 import { tabStyles } from './styles';
 import { Button } from 'react-native';
 import UserContext from './context/userContext';
+import AuthContext from './context/authContext';
+import axios from 'axios';
 
 const BottomTabs = createBottomTabNavigator();
 
@@ -28,35 +30,36 @@ interface ITabProps {
   color: 'string';
 }
 
-function options({ route }: IOptionsProps) {
-  return {
-    ...tabStyles,
-    tabBarIcon: ({ color }: ITabProps) => {
-      switch (route.name) {
-        case 'Calendar':
-          return <CalendarIcon color={color} />;
-        case 'Map':
-          return <MapIcon color={color} />;
-        case 'Flight':
-          return <FlightIcon color={color} />;
-        case 'Hotel':
-          return <HotelIcon color={color} />;
-      }
-    },
-  };
-}
-
 function Tabs() {
   const { setUserEmail } = useContext(UserContext);
+  const { response, logout } = useContext(AuthContext);
+
+  function options({ route }: IOptionsProps) {
+    return {
+      ...tabStyles,
+      tabBarIcon: ({ color }: ITabProps) => {
+        switch (route.name) {
+          case 'Calendar':
+            return <CalendarIcon color={color} />;
+          case 'Map':
+            return <MapIcon color={color} />;
+          case 'Flight':
+            return <FlightIcon color={color} />;
+          case 'Hotel':
+            return <HotelIcon color={color} />;
+        }
+      },
+      headerRight: () => (
+        <Button
+          onPress={() => logout(response.authentication.accessToken)}
+          title='Logout'
+        />
+      ),
+    };
+  }
+
   return (
-    <BottomTabs.Navigator
-      screenOptions={{
-        ...options,
-        headerRight: () => (
-          <Button onPress={() => setUserEmail(null)} title='Logout' />
-        ),
-      }}
-    >
+    <BottomTabs.Navigator screenOptions={options}>
       <BottomTabs.Screen name='Calendar' component={CalendarScreen} />
       <BottomTabs.Screen name='Map' component={MapScreen} />
       <BottomTabs.Screen name='Flight' component={FlightScreen} />
