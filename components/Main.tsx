@@ -1,16 +1,16 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { LoginScreen } from '../screens';
 import { navigationStyles } from '../styles';
 import Tabs from '../Tabs';
-import UserContext, { UserProvider } from '../context/userContext';
+import { useUserContext } from '../contexts';
 
 export default function Main() {
-  const { userEmail, setUserEmail } = useContext(UserContext);
+  const { userDetails } = useUserContext();
 
   return (
     <NavigationContainer theme={navigationStyles}>
-      {userEmail ? <Tabs /> : <LoginScreen setUserEmail={setUserEmail} />}
+      {userDetails.email ? <Tabs /> : <LoginScreen />}
     </NavigationContainer>
   );
 }

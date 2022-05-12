@@ -1,6 +1,4 @@
 import colors from './colors';
-import { Button } from 'react-native';
-import { color } from 'react-native-reanimated';
 
 export default {
   headerStyle: {

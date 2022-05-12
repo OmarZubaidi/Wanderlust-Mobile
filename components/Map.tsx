@@ -52,33 +52,38 @@ const EVENTS = [
 ];
 
 // TODO Doesn't work, but does ask for permission
-function getUserLocation() {
-  const permissionGranted = requestPermissionAndReturn(
-    'android.permission.ACCESS_FINE_LOCATION',
-    {
-      title: 'Location',
-      message: 'Please allow fine location permission to enable map usage',
-      buttonPositive: 'Enable',
-    }
-  );
-  if (permissionGranted)
-    Geolocation.getCurrentPosition(
-      (position) => {
-        const { latitude, longitude } = position.coords;
-        console.log(latitude, longitude);
-      },
-      (error) => {
-        console.warn(`Error (${error.code}): ${error.message}`);
-      },
+async function getUserLocation() {
+  try {
+    const permissionGranted = await requestPermissionAndReturn(
+      'android.permission.ACCESS_FINE_LOCATION',
       {
-        accuracy: {
-          android: 'high',
-          ios: 'best',
-        },
-        timeout: 15000,
-        maximumAge: 5000,
+        title: 'Location',
+        message: 'Please allow fine location permission to enable map usage',
+        buttonPositive: 'Enable',
       }
     );
+    console.log('map permissions', permissionGranted);
+    if (permissionGranted)
+      Geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          console.log('Lat Lng', latitude, longitude);
+        },
+        (error) => {
+          console.warn(`Error (${error.code}): ${error.message}`);
+        },
+        {
+          accuracy: {
+            android: 'high',
+            ios: 'best',
+          },
+          timeout: 15000,
+          maximumAge: 5000,
+        }
+      );
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 function markerRenderer(event: IEvent) {

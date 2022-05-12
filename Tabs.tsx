@@ -1,5 +1,6 @@
+import React from 'react';
+import { Button, Text, TouchableOpacity } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import React, { useContext } from 'react';
 import {
   CalendarScreen,
   FlightScreen,
@@ -13,10 +14,7 @@ import {
   MapIcon,
 } from './components/Icons';
 import { tabStyles } from './styles';
-import { Button } from 'react-native';
-import UserContext from './context/userContext';
-import AuthContext from './context/authContext';
-import axios from 'axios';
+import { useAuthContext, useUserContext } from './contexts';
 
 const BottomTabs = createBottomTabNavigator();
 
@@ -31,8 +29,8 @@ interface ITabProps {
 }
 
 function Tabs() {
-  const { setUserEmail } = useContext(UserContext);
-  const { response, logout } = useContext(AuthContext);
+  const { logout } = useAuthContext();
+  const { userDetails } = useUserContext();
 
   function options({ route }: IOptionsProps) {
     return {
@@ -50,10 +48,9 @@ function Tabs() {
         }
       },
       headerRight: () => (
-        <Button
-          onPress={() => logout(response.authentication.accessToken)}
-          title='Logout'
-        />
+        <TouchableOpacity onPress={() => logout(userDetails.accessToken)}>
+          <Text>Logout</Text>
+        </TouchableOpacity>
       ),
     };
   }
