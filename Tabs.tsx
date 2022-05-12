@@ -1,5 +1,5 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import React from 'react';
+import React, { useContext } from 'react';
 import {
   CalendarScreen,
   FlightScreen,
@@ -13,6 +13,8 @@ import {
   MapIcon,
 } from './components/Icons';
 import { tabStyles } from './styles';
+import { Button } from 'react-native';
+import UserContext from './context/userContext';
 
 const BottomTabs = createBottomTabNavigator();
 
@@ -45,8 +47,16 @@ function options({ route }: IOptionsProps) {
 }
 
 function Tabs() {
+  const { setUserEmail } = useContext(UserContext);
   return (
-    <BottomTabs.Navigator screenOptions={options}>
+    <BottomTabs.Navigator
+      screenOptions={{
+        ...options,
+        headerRight: () => (
+          <Button onPress={() => setUserEmail(null)} title='Logout' />
+        ),
+      }}
+    >
       <BottomTabs.Screen name='Calendar' component={CalendarScreen} />
       <BottomTabs.Screen name='Map' component={MapScreen} />
       <BottomTabs.Screen name='Flight' component={FlightScreen} />
