@@ -1,11 +1,11 @@
 import { Dimensions, StyleSheet } from 'react-native';
+import colors from './colors';
 
 export const styleObject = StyleSheet.create({
   map: {
     flex: 1,
     width: Dimensions.get('window').width,
     height: Dimensions.get('window').height,
-    justifyContent: 'center',
   },
 });
 
@@ -74,7 +74,7 @@ export const styling = [
     elementType: 'geometry',
     stylers: [
       {
-        color: '#e5e5e5',
+        color: colors.green,
       },
     ],
   },
@@ -155,7 +155,7 @@ export const styling = [
     elementType: 'geometry',
     stylers: [
       {
-        color: '#c9c9c9',
+        color: colors.lightSkyBlue,
       },
     ],
   },
@@ -164,7 +164,7 @@ export const styling = [
     elementType: 'labels.text.fill',
     stylers: [
       {
-        color: '#9e9e9e',
+        color: colors.white,
       },
     ],
   },

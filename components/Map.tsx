@@ -1,9 +1,13 @@
 import React from 'react';
-import { ImageBackground } from 'react-native';
+import { ImageBackground, Platform } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
+import Geolocation from 'react-native-geolocation-service';
+import {
+  convertCoordinatesToObjects,
+  requestPermissionAndReturn,
+} from '../helpers';
 import { IEvent } from '../interfaces';
-import { imageStyles, mapStyles } from '../styles';
-import TripOverview from './TripOverview';
+import { colorStyles, imageStyles, mapStyles } from '../styles';
 
 const LOCATION = {
   latitude: 51.5072,
@@ -20,7 +24,7 @@ const EVENTS = [
     allDay: false,
     description: 'test',
     location: 'Barcelona',
-    coordinates: '51.5072, -0.1276',
+    coordinates: '51.5172, -0.1176',
     price: 'free',
     eventApiId: 12323,
     bookingLink: 'LINK',
@@ -36,7 +40,7 @@ const EVENTS = [
     allDay: false,
     description: 'I dunno food or something',
     location: 'Barcelona',
-    coordinates: '51.6072, -0.2276',
+    coordinates: '51.4972, -0.1376',
     price: '10 €',
     eventApiId: 12332,
     bookingLink: 'LINK',
@@ -47,19 +51,46 @@ const EVENTS = [
   },
 ];
 
+// TODO Doesn't work, but does ask for permission
+function getUserLocation() {
+  const permissionGranted = requestPermissionAndReturn(
+    'android.permission.ACCESS_FINE_LOCATION',
+    {
+      title: 'Location',
+      message: 'Please allow fine location permission to enable map usage',
+      buttonPositive: 'Enable',
+    }
+  );
+  if (permissionGranted)
+    Geolocation.getCurrentPosition(
+      (position) => {
+        const { latitude, longitude } = position.coords;
+        console.log(latitude, longitude);
+      },
+      (error) => {
+        console.warn(`Error (${error.code}): ${error.message}`);
+      },
+      {
+        accuracy: {
+          android: 'high',
+          ios: 'best',
+        },
+        timeout: 15000,
+        maximumAge: 5000,
+      }
+    );
+}
+
 function markerRenderer(event: IEvent) {
   const { eventApiId, coordinates, title, description } = event;
-  const coordinatesArray = coordinates.split(', ');
-  const coordinate = {
-    latitude: parseFloat(coordinatesArray[0]),
-    longitude: parseFloat(coordinatesArray[1]),
-  };
+  const coordinate = convertCoordinatesToObjects(coordinates);
   return (
     <Marker
       key={eventApiId}
       coordinate={coordinate}
       title={title}
       description={description}
+      pinColor={Platform.OS === 'ios' ? colorStyles.beige : 'tan'}
     />
   );
 }
@@ -76,10 +107,14 @@ function Map() {
           style={[mapStyles.styleObject.map]}
           customMapStyle={mapStyles.styling}
           initialRegion={LOCATION}
+          userInterfaceStyle='light'
+          onMapReady={getUserLocation}
+          showsUserLocation={true}
+          showsMyLocationButton={true}
+          followsUserLocation={true}
         >
           {EVENTS.map(markerRenderer)}
         </MapView>
-        <TripOverview />
       </ImageBackground>
     </>
   );
