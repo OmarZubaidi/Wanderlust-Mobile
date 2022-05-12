@@ -39,42 +39,42 @@ const EVENTS = [
   },
 ];
 
-// async function getDefaultCalendarSource() {
-//   const defaultCalendar = await ExpoCalendar.getDefaultCalendarAsync();
-//   return defaultCalendar.source;
-// }
+async function getDefaultCalendarSource() {
+  const defaultCalendar = await ExpoCalendar.getDefaultCalendarAsync();
+  return defaultCalendar.source;
+}
 
-// async function createCalendar(tripName) {
-//   const defaultCalendarSource =
-//     Platform.OS === 'ios'
-//       ? await getDefaultCalendarSource()
-//       : { isLocalAccount: true, name: 'Wanderlust' };
-//   await ExpoCalendar.createCalendarAsync({
-//     title: tripName,
-//     color: colorStyles.lightSkyBlue,
-//     entityType: ExpoCalendar.EntityTypes.EVENT,
-//     sourceId: defaultCalendarSource.id,
-//     source: defaultCalendarSource,
-//     name: 'internalCalendarName',
-//     ownerAccount: 'personal',
-//     accessLevel: ExpoCalendar.CalendarAccessLevel.OWNER,
-//   });
-// }
+async function createCalendar(tripName: string) {
+  const defaultCalendarSource =
+    Platform.OS === 'ios'
+      ? await getDefaultCalendarSource()
+      : { isLocalAccount: true, name: 'Wanderlust' };
+  await ExpoCalendar.createCalendarAsync({
+    title: tripName,
+    color: colorStyles.lightSkyBlue,
+    entityType: ExpoCalendar.EntityTypes.EVENT,
+    sourceId: defaultCalendarSource.id,
+    source: defaultCalendarSource,
+    name: 'internalCalendarName',
+    ownerAccount: 'personal',
+    accessLevel: ExpoCalendar.CalendarAccessLevel.OWNER,
+  });
+}
 
 function Calendar() {
-  // TODO for some reason this refreshes the app all the time. Stop that.
-  // useEffect(() => {
-  //   (async () => {
-  //     const { status } = await ExpoCalendar.requestCalendarPermissionsAsync();
-  //     if (status === 'granted') {
-  //       const calendars = await ExpoCalendar.getCalendarsAsync(
-  //         ExpoCalendar.EntityTypes.EVENT
-  //       );
-  //       if (!calendars.some((calendar) => calendar.title === 'Wanderlust'))
-  //         createCalendar('Wanderlust');
-  //     }
-  //   })();
-  // }, []);
+  useEffect(() => {
+    (async () => {
+      const { status } = await ExpoCalendar.requestCalendarPermissionsAsync();
+      if (status === 'granted') {
+        const calendars = await ExpoCalendar.getCalendarsAsync(
+          ExpoCalendar.EntityTypes.EVENT
+        );
+        // Create the calendar on the user's device to use reminders
+        if (!calendars.some((calendar) => calendar.title === 'Wanderlust'))
+          createCalendar('Wanderlust');
+      }
+    })();
+  }, []);
 
   return (
     <>
