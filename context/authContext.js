@@ -28,6 +28,7 @@ export const AuthProvider = ( { children } ) =>
     expoClientId: ENV.googleClientId,
   } );
 
+
   return (
     <AuthContext.Provider value={{ getUserDetails, request, response, promptAsync }}>
       {children}
