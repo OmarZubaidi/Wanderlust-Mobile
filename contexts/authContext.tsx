@@ -48,6 +48,7 @@ function AuthProvider({ children }: IProps) {
         `https://oauth2.googleapis.com/revoke?token=${accessToken}`,
         { headers }
       );
+      response.authentication = null; //find better way to remove response
       setUserDetails({ email: null, accessToken: null });
     } catch (error: any) {
       console.log('logout error', error);
@@ -60,10 +61,11 @@ function AuthProvider({ children }: IProps) {
 
   async function login() {
     console.log('login()');
-    await promptAsync();
     if (response && response.authentication) {
+      console.log(response.type);
       if (response.type === 'success') {
         const accessToken = response.authentication.accessToken;
+        console.log(accessToken);
         try {
           const user = await fetchUserDetails(accessToken);
           console.log('login get details', user);
@@ -71,7 +73,6 @@ function AuthProvider({ children }: IProps) {
             `https://api-wanderlust-dogs.herokuapp.com/users/email/${user.email}`
           );
           setUserDetails(user);
-          console.log('login got details', userDetails);
         } catch (error: any) {
           console.log('login error', error);
           Alert.alert(
