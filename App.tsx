@@ -1,8 +1,7 @@
 import React from 'react';
-import Main from './components/Main';
 import { StatusBar } from 'expo-status-bar';
-import { AuthProvider } from './context/authContext';
-import { UserProvider } from './context/userContext';
+import { AuthProvider, UserProvider } from './contexts';
+import { Main } from './components';
 
 export default function App() {
   return (
