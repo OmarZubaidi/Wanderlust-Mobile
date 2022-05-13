@@ -8,6 +8,7 @@ import * as mapStyles from './maps';
 import navigationStyles from './navigation';
 import tabStyles from './tabs';
 import tripOverviewStyles from './tripOverview';
+import formStyles from './form';
 
 export {
   styles,
@@ -20,4 +21,5 @@ export {
   navigationStyles,
   tabStyles,
   tripOverviewStyles,
+  formStyles,
 };
