@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   ImageBackground,
   Text,
@@ -16,7 +16,13 @@ import { useAuthContext } from '../contexts';
 WebBrowser.maybeCompleteAuthSession();
 
 function Login() {
-  const { login } = useAuthContext();
+  const { login, response, promptAsync } = useAuthContext();
+
+  useEffect(() => {
+    if (response) {
+      login();
+    }
+  }, [response]);
 
   return (
     <>
@@ -46,7 +52,7 @@ function Login() {
         </View>
         <TouchableOpacity
           style={[loginStyles.bottomView]}
-          onPress={() => login()}
+          onPress={() => promptAsync()}
         >
           <Text style={[loginStyles.bottomText]}>
             Or login through <Text style={[loginStyles.google]}>Google</Text>
