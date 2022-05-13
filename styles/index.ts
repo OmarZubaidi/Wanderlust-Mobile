@@ -1,4 +1,5 @@
 import styles from './styles';
+import * as calendarStyles from './calendar';
 import colorStyles from './colors';
 import flightAndHotelStyles from './flightsAndHotels';
 import friendStyles from './friends';
@@ -12,6 +13,7 @@ import tripOverviewStyles from './tripOverview';
 
 export {
   styles,
+  calendarStyles,
   colorStyles,
   flightAndHotelStyles,
   friendStyles,
