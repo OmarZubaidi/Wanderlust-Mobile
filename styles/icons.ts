@@ -1,5 +1,7 @@
 const size = 20;
 
 export default {
-  size,
+  normal: 20,
+  bigger: 25,
+  biggest: 40,
 };

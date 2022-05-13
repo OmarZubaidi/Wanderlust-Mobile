@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Text, TouchableOpacity } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import {
   CalendarScreen,
@@ -11,9 +11,10 @@ import {
   CalendarIcon,
   FlightIcon,
   HotelIcon,
+  LogoutIcon,
   MapIcon,
 } from './components/Icons';
-import { tabStyles } from './styles';
+import { colorStyles, logoutStyles, tabStyles } from './styles';
 import { useAuthContext, useUserContext } from './contexts';
 
 const BottomTabs = createBottomTabNavigator();
@@ -48,8 +49,11 @@ function Tabs() {
         }
       },
       headerRight: () => (
-        <TouchableOpacity onPress={() => logout(userDetails.accessToken)}>
-          <Text>Logout</Text>
+        <TouchableOpacity
+          onPress={() => logout(userDetails.accessToken)}
+          style={logoutStyles.logout}
+        >
+          <LogoutIcon color={colorStyles.grey} />
         </TouchableOpacity>
       ),
     };

@@ -5,6 +5,7 @@ import 'intl/locale-data/jsonp/en';
 import {
   colorStyles,
   flightAndHotelStyles,
+  iconStyles,
   imageStyles,
   styles,
 } from '../styles';
@@ -83,7 +84,7 @@ function flightRenderer(flight: IFlight) {
         <Text style={[flightAndHotelStyles.innerText]}>{arrivalTime}</Text>
         <Text style={[flightAndHotelStyles.innerText]}>{arrAirport}</Text>
       </View>
-      <Friends friends={FRIENDS_IMAGES} size={25} />
+      <Friends friends={FRIENDS_IMAGES} size={iconStyles.bigger} />
     </View>
   );
 }

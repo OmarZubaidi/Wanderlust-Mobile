@@ -62,8 +62,8 @@ async function getUserLocation() {
         buttonPositive: 'Enable',
       }
     );
-    console.log('map permissions', permissionGranted);
-    if (permissionGranted)
+    if (permissionGranted) {
+      console.log('inside permissionGranted');
       Geolocation.getCurrentPosition(
         (position) => {
           const { latitude, longitude } = position.coords;
@@ -81,6 +81,7 @@ async function getUserLocation() {
           maximumAge: 5000,
         }
       );
+    }
   } catch (error) {
     console.log(error);
   }

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 import { convertDateToDay } from '../helpers';
-import { tripOverviewStyles } from '../styles';
+import { iconStyles, tripOverviewStyles } from '../styles';
 import Friends from './Friends';
 
 const TRIP = {
@@ -30,7 +30,7 @@ function TripOverview() {
         </Text>
       </View>
       <View>
-        <Friends friends={FRIENDS_IMAGES} size={40} />
+        <Friends friends={FRIENDS_IMAGES} size={iconStyles.biggest} />
       </View>
     </View>
   );

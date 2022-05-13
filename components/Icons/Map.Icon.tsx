@@ -8,7 +8,11 @@ interface IProps {
 
 function MapIcon({ color }: IProps) {
   return (
-    <Svg width={iconStyles.size} height={iconStyles.size} viewBox='0 0 55 54'>
+    <Svg
+      width={iconStyles.normal}
+      height={iconStyles.normal}
+      viewBox='0 0 55 54'
+    >
       <Path
         d='M28 23C31.3077 23 34 20.3077 34 17C34 13.6923 31.3077 11 28 11C24.6923 11 22 13.6923 22 17C22 20.3077 24.6914 23 28 23ZM28 12.7143C30.3631 12.7143 32.2857 14.6369 32.2857 17C32.2857 19.3631 30.3631 21.2857 28 21.2857C25.6369 21.2857 23.7143 19.3631 23.7143 17C23.7143 14.6369 25.6369 12.7143 28 12.7143Z'
         fill={color}
