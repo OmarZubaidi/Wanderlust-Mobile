@@ -5,6 +5,7 @@ import { IHotel } from '../interfaces';
 import {
   colorStyles,
   flightAndHotelStyles,
+  iconStyles,
   imageStyles,
   styles,
 } from '../styles';
@@ -71,7 +72,7 @@ function hotelRenderer(hotel: IHotel) {
       >
         {departureDay}
       </Text>
-      <Friends friends={FRIENDS_IMAGES} size={25} />
+      <Friends friends={FRIENDS_IMAGES} size={iconStyles.bigger} />
     </View>
   );
 }

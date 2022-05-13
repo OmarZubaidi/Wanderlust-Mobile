@@ -48,12 +48,11 @@ async function createCalendar(tripName: string) {
   const defaultCalendarSource =
     Platform.OS === 'ios'
       ? await getDefaultCalendarSource()
-      : { isLocalAccount: true, name: 'Wanderlust' };
+      : { isLocalAccount: true, name: 'Wanderlust', type: '' };
   await ExpoCalendar.createCalendarAsync({
     title: tripName,
     color: colorStyles.lightSkyBlue,
     entityType: ExpoCalendar.EntityTypes.EVENT,
-    sourceId: defaultCalendarSource.id,
     source: defaultCalendarSource,
     name: 'internalCalendarName',
     ownerAccount: 'personal',

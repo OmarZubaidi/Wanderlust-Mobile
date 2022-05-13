@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Text, TouchableOpacity } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import {
   CalendarScreen,

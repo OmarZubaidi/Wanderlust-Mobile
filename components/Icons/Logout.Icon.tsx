@@ -1,5 +1,6 @@
 import React from 'react';
 import { Svg, Path, G } from 'react-native-svg';
+import { iconStyles } from '../../styles';
 
 interface IProps {
   color: string;
@@ -7,7 +8,12 @@ interface IProps {
 
 function CalendarIcon({ color }: IProps) {
   return (
-    <Svg width={25} height={25} viewBox='0 0 471.2 471.2' fill={color}>
+    <Svg
+      width={iconStyles.bigger}
+      height={iconStyles.bigger}
+      viewBox='0 0 471.2 471.2'
+      fill={color}
+    >
       <G>
         <G>
           <Path
