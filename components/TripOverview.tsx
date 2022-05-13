@@ -18,14 +18,26 @@ const FRIENDS_IMAGES = [
   'https://clipartion.com/wp-content/uploads/2015/11/circle-clipart-free-clip-art-images.png',
 ];
 
-function TripOverview() {
+interface IProps {
+  borderBottomColor: string;
+}
+
+function TripOverview({ borderBottomColor }: IProps) {
   const tripStart = convertDateToDay(new Date(TRIP.departure));
   const tripEnd = convertDateToDay(new Date(TRIP.return));
   return (
-    <View style={[tripOverviewStyles.container]}>
+    <View
+      style={[
+        tripOverviewStyles.container,
+        tripOverviewStyles.bottomBorder,
+        { borderBottomColor },
+      ]}
+    >
       <View style={[tripOverviewStyles.vertical]}>
-        <Text style={[tripOverviewStyles.city]}>{TRIP.destination}</Text>
-        <Text>
+        <Text style={[tripOverviewStyles.city, tripOverviewStyles.textColor]}>
+          {TRIP.destination}
+        </Text>
+        <Text style={[tripOverviewStyles.textColor]}>
           {tripStart} - {tripEnd}
         </Text>
       </View>

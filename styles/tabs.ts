@@ -2,20 +2,22 @@ import colors from './colors';
 
 export default {
   headerStyle: {
-    backgroundColor: colors.lightSkyBlue,
-    borderBottomColor: colors.lightSkyBlue,
+    backgroundColor: colors.white,
+    borderBottomWidth: 0.5,
+    borderBottomColor: colors.grey,
   },
   headerTitleStyle: {
-    color: colors.blackish,
+    color: colors.grey,
     fontSize: 24,
   },
   tabBarStyle: {
-    backgroundColor: colors.lightSkyBlue,
-    borderTopColor: colors.lightSkyBlue,
+    backgroundColor: colors.white,
+    borderTopLeftRadius: 15,
+    borderTopRightRadius: 15,
   },
   headerTitle: 'Wanderlust',
   headerTitleAlign: 'start',
-  tabBarActiveTintColor: colors.white,
+  tabBarActiveTintColor: colors.tabBlue,
   tabBarInactiveTintColor: colors.blackish,
   tabBarItemStyle: {
     marginTop: 10,

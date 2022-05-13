@@ -1,5 +1,5 @@
 import React from 'react';
-import { ImageBackground, Platform } from 'react-native';
+import { Platform } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import Geolocation from 'react-native-geolocation-service';
 import {
@@ -7,7 +7,8 @@ import {
   requestPermissionAndReturn,
 } from '../helpers';
 import { IEvent } from '../interfaces';
-import { colorStyles, imageStyles, mapStyles } from '../styles';
+import { colorStyles, mapStyles } from '../styles';
+import TripOverview from './TripOverview';
 
 const LOCATION = {
   latitude: 51.5072,
@@ -104,24 +105,19 @@ function markerRenderer(event: IEvent) {
 function Map() {
   return (
     <>
-      <ImageBackground
-        source={require('../assets/map.jpg')}
-        resizeMode='cover'
-        style={[imageStyles.background]}
+      <TripOverview borderBottomColor={colorStyles.white} />
+      <MapView
+        style={[mapStyles.styleObject.map]}
+        customMapStyle={mapStyles.styling}
+        initialRegion={LOCATION}
+        userInterfaceStyle='light'
+        onMapReady={getUserLocation}
+        showsUserLocation={true}
+        showsMyLocationButton={true}
+        followsUserLocation={true}
       >
-        <MapView
-          style={[mapStyles.styleObject.map]}
-          customMapStyle={mapStyles.styling}
-          initialRegion={LOCATION}
-          userInterfaceStyle='light'
-          onMapReady={getUserLocation}
-          showsUserLocation={true}
-          showsMyLocationButton={true}
-          followsUserLocation={true}
-        >
-          {EVENTS.map(markerRenderer)}
-        </MapView>
-      </ImageBackground>
+        {EVENTS.map(markerRenderer)}
+      </MapView>
     </>
   );
 }
