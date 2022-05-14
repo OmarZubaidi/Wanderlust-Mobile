@@ -155,7 +155,7 @@ export const styling = [
     elementType: 'geometry',
     stylers: [
       {
-        color: colors.lightSkyBlue,
+        color: colors.sidebarBlue,
       },
     ],
   },

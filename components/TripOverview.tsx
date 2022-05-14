@@ -6,8 +6,8 @@ import Friends from './Friends';
 
 const TRIP = {
   destination: 'Barcelona',
-  departure: '1971-02-01T00:00:00.000Z',
-  return: '2022-01-01T02:00:00.000Z',
+  departure: '2022-05-30T00:00:00.000Z',
+  return: '2022-06-02T12:00:00.000Z',
   friends: [16, 15, 14, 13],
 };
 

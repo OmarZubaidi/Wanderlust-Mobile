@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import MapView, { Marker } from 'react-native-maps';
+import MapViewDirections from 'react-native-maps-directions';
 import * as Location from 'expo-location';
 import { IEvent } from '../interfaces';
 import { colorStyles, mapStyles } from '../styles';
 import TripOverview from './TripOverview';
+import ENV from '../config/env';
 
 const LOCATION = {
   latitude: 51.5072,
@@ -49,21 +51,6 @@ const EVENTS = [
   },
 ];
 
-async function getUserLocation() {
-  try {
-    const permissionGranted =
-      await Location.requestForegroundPermissionsAsync();
-    if (permissionGranted) {
-      const location = await Location.getCurrentPositionAsync();
-      const { latitude, longitude } = location.coords;
-      // TODO Yay. Now do something with it.
-      console.log('location', latitude, longitude);
-    }
-  } catch (error) {
-    console.log(error);
-  }
-}
-
 function markerRenderer(event: IEvent) {
   const { eventApiId, latitude, longitude, title, description } = event;
   return (
@@ -88,7 +75,25 @@ interface IProps {
 }
 
 function Map({ route }: IProps) {
-  console.log('component', route);
+  const [userLocation, setUserLocation] = useState({
+    latitude: 0,
+    longitude: 0,
+  });
+  async function getUserLocation() {
+    try {
+      const permissionGranted =
+        await Location.requestForegroundPermissionsAsync();
+      if (permissionGranted) {
+        const location = await Location.getCurrentPositionAsync();
+        const { latitude, longitude } = location.coords;
+        // TODO Yay. Now do something with it.
+        setUserLocation({ latitude, longitude });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <>
       <TripOverview borderBottomColor={colorStyles.white} />
@@ -101,8 +106,18 @@ function Map({ route }: IProps) {
         showsUserLocation={true}
         showsMyLocationButton={true}
         followsUserLocation={true}
+        tintColor={colorStyles.red}
       >
         {EVENTS.map(markerRenderer)}
+        {route.params && (
+          <MapViewDirections
+            origin={userLocation}
+            destination={route.params}
+            apikey={ENV.googleMapsApiKey}
+            strokeWidth={5}
+            strokeColor={colorStyles.beige}
+          />
+        )}
       </MapView>
     </>
   );
