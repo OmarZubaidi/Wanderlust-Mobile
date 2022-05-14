@@ -1,8 +1,6 @@
 import React from 'react';
-import { Platform } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
-import Geolocation from 'react-native-geolocation-service';
-import { requestPermissionAndReturn } from '../helpers';
+import * as Location from 'expo-location';
 import { IEvent } from '../interfaces';
 import { colorStyles, mapStyles } from '../styles';
 import TripOverview from './TripOverview';
@@ -51,36 +49,15 @@ const EVENTS = [
   },
 ];
 
-// TODO Doesn't work, but does ask for permission
 async function getUserLocation() {
   try {
-    const permissionGranted = await requestPermissionAndReturn(
-      'android.permission.ACCESS_FINE_LOCATION',
-      {
-        title: 'Location',
-        message: 'Please allow fine location permission to enable map usage',
-        buttonPositive: 'Enable',
-      }
-    );
+    const permissionGranted =
+      await Location.requestForegroundPermissionsAsync();
     if (permissionGranted) {
-      console.log('inside permissionGranted');
-      Geolocation.getCurrentPosition(
-        (position) => {
-          const { latitude, longitude } = position.coords;
-          console.log('Lat Lng', latitude, longitude);
-        },
-        (error) => {
-          console.warn(`Error (${error.code}): ${error.message}`);
-        },
-        {
-          accuracy: {
-            android: 'high',
-            ios: 'best',
-          },
-          timeout: 15000,
-          maximumAge: 5000,
-        }
-      );
+      const location = await Location.getCurrentPositionAsync();
+      const { latitude, longitude } = location.coords;
+      // TODO Yay. Now do something with it.
+      console.log('location', latitude, longitude);
     }
   } catch (error) {
     console.log(error);
@@ -92,11 +69,16 @@ function markerRenderer(event: IEvent) {
   return (
     <Marker
       key={eventApiId}
+      anchor={{ x: 0.5, y: 1 }}
       coordinate={{ latitude, longitude }}
       title={title}
       description={description}
-      // TODO Add custom map markers using logo
-      pinColor={Platform.OS === 'ios' ? colorStyles.beige : 'tan'}
+      style={{ width: 10 }}
+      tracksViewChanges={true}
+      onPress={(item) => {
+        console.log(item.nativeEvent.coordinate);
+      }}
+      icon={require('../assets/pinSmall.png')}
     />
   );
 }
