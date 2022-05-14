@@ -29,11 +29,7 @@ function Login() {
         style={[imageStyles.background]}
       >
         <View style={[styles.container, loginStyles.container]}>
-          <Text
-            style={[loginStyles.heading, { fontFamily: 'Inter_400Regular' }]}
-          >
-            Login
-          </Text>
+          <Text style={[loginStyles.heading]}>Login</Text>
           <TextInput
             value={''}
             onChangeText={() => {}}
