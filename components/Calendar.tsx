@@ -1,11 +1,13 @@
 import React, { useEffect } from 'react';
+import { View } from 'react-native';
 import { Agenda } from 'react-native-calendars';
 import * as ExpoCalendar from 'expo-calendar';
-import { calendarStyles, colorStyles } from '../styles';
+import { calendarStyles, colorStyles, styles } from '../styles';
 import TripOverview from './TripOverview';
 import { calendarHelpers, formatEvents } from '../helpers';
+import { IEvent } from '../interfaces';
 
-const EVENTS = [
+const EVENTS: IEvent[] = [
   {
     title: 'Lorem ipsum dolor',
     start: '2022-05-30T09:00:00.000Z',
@@ -13,8 +15,26 @@ const EVENTS = [
     allDay: false,
     description: 'test',
     location: 'Barcelona',
-    coordinates: '123, 456',
-    price: 'free',
+    latitude: 1235678,
+    longitude: 12378,
+    price: 0,
+    eventApiId: 12323,
+    bookingLink: 'LINK',
+    type: 'Activity',
+    pictures: 'reeeeee',
+    rating: 3.2,
+    tripId: 2,
+  },
+  {
+    title: 'Dolores yo',
+    start: '2022-05-30T10:00:00.000Z',
+    end: '2022-05-30T11:00:00.000Z',
+    allDay: false,
+    description: 'not first',
+    location: 'Barcelona',
+    latitude: 123,
+    longitude: 456,
+    price: 100,
     eventApiId: 12323,
     bookingLink: 'LINK',
     type: 'Activity',
@@ -29,8 +49,9 @@ const EVENTS = [
     allDay: false,
     description: 'I dunno food or something',
     location: 'Barcelona',
-    coordinates: '456, 123',
-    price: '10 €',
+    latitude: 456,
+    longitude: 123,
+    price: 0,
     eventApiId: 12324,
     bookingLink: 'LINK',
     type: 'Restaurant',
@@ -43,10 +64,11 @@ const EVENTS = [
     start: '2022-06-01T11:00:00.000Z',
     end: '2022-06-01T14:00:00.000Z',
     allDay: false,
-    description: 'I dunno food or something',
+    description: 'Hot',
     location: 'Barcelona',
-    coordinates: '456, 123',
-    price: '10 €',
+    latitude: 456,
+    longitude: 123,
+    price: 0,
     eventApiId: 12325,
     bookingLink: 'LINK',
     type: 'Restaurant',
@@ -59,10 +81,11 @@ const EVENTS = [
     start: '2022-06-02T11:00:00.000Z',
     end: '2022-06-02T14:00:00.000Z',
     allDay: false,
-    description: 'I dunno food or something',
+    description: 'Byeeeeeeeeeeeeeeeeeeeeee',
     location: 'Barcelona',
-    coordinates: '456, 123',
-    price: '10 €',
+    latitude: 456,
+    longitude: 123,
+    price: 0,
     eventApiId: 12326,
     bookingLink: 'LINK',
     type: 'Restaurant',
@@ -78,7 +101,11 @@ const TRIP = {
   destination: 'Barcelona',
 };
 
-function Calendar() {
+interface IProps {
+  navigation: any;
+}
+
+function Calendar({ navigation }: IProps) {
   useEffect(() => {
     (async () => {
       const { status } = await ExpoCalendar.requestCalendarPermissionsAsync();
@@ -98,21 +125,24 @@ function Calendar() {
   return (
     <>
       <TripOverview borderBottomColor={colorStyles.grey} />
-      <Agenda
-        items={events}
-        // Initially selected day
-        selected={TRIP.start}
-        minDate={TRIP.start}
-        maxDate={TRIP.end}
-        pastScrollRange={1}
-        futureScrollRange={1}
-        renderItem={(item) => calendarHelpers.renderItem(item)}
-        // Day can be undefined if the item is not first in that day
-        renderDay={(day, item) => calendarHelpers.renderDay(day, item!)}
-        showClosingKnob={true}
-        theme={calendarStyles.agenda}
-        // style={calendarStyles.styleObject.calendar}
-      />
+      <View style={{ flex: 1 }}>
+        <Agenda
+          items={events}
+          // Initially selected day
+          selected={TRIP.start}
+          minDate={TRIP.start}
+          maxDate={TRIP.end}
+          pastScrollRange={0}
+          futureScrollRange={1}
+          renderItem={(item) => calendarHelpers.renderItem(item, navigation)}
+          rowHasChanged={(r1, r2) => {
+            return r1.name !== r2.name;
+          }}
+          showClosingKnob={true}
+          hideExtraDays={true}
+          theme={calendarStyles.agenda}
+        />
+      </View>
     </>
   );
 }

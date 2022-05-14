@@ -2,10 +2,7 @@ import React from 'react';
 import { Platform } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import Geolocation from 'react-native-geolocation-service';
-import {
-  convertCoordinatesToObjects,
-  requestPermissionAndReturn,
-} from '../helpers';
+import { requestPermissionAndReturn } from '../helpers';
 import { IEvent } from '../interfaces';
 import { colorStyles, mapStyles } from '../styles';
 import TripOverview from './TripOverview';
@@ -25,8 +22,9 @@ const EVENTS = [
     allDay: false,
     description: 'test',
     location: 'Barcelona',
-    coordinates: '51.5172, -0.1176',
-    price: 'free',
+    latitude: 51.5172,
+    longitude: -0.1176,
+    price: 0,
     eventApiId: 12323,
     bookingLink: 'LINK',
     type: 'Activity',
@@ -41,8 +39,9 @@ const EVENTS = [
     allDay: false,
     description: 'I dunno food or something',
     location: 'Barcelona',
-    coordinates: '51.4972, -0.1376',
-    price: '10 €',
+    latitude: 51.4972,
+    longitude: -0.1376,
+    price: 10,
     eventApiId: 12332,
     bookingLink: 'LINK',
     type: 'Restaurant',
@@ -89,20 +88,25 @@ async function getUserLocation() {
 }
 
 function markerRenderer(event: IEvent) {
-  const { eventApiId, coordinates, title, description } = event;
-  const coordinate = convertCoordinatesToObjects(coordinates);
+  const { eventApiId, latitude, longitude, title, description } = event;
   return (
     <Marker
       key={eventApiId}
-      coordinate={coordinate}
+      coordinate={{ latitude, longitude }}
       title={title}
       description={description}
+      // TODO Add custom map markers using logo
       pinColor={Platform.OS === 'ios' ? colorStyles.beige : 'tan'}
     />
   );
 }
 
-function Map() {
+interface IProps {
+  route: any;
+}
+
+function Map({ route }: IProps) {
+  console.log('component', route);
   return (
     <>
       <TripOverview borderBottomColor={colorStyles.white} />

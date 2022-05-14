@@ -16,8 +16,7 @@ export default {
     borderTopRightRadius: 15,
   },
   headerTitle: 'Wanderlust',
-  headerTitleAlign: 'start',
-  tabBarActiveTintColor: colors.tabBlue,
+  tabBarActiveTintColor: colors.sidebarBlue,
   tabBarInactiveTintColor: colors.blackish,
   tabBarItemStyle: {
     marginTop: 10,

@@ -5,8 +5,9 @@ export default interface IEvent {
   allDay: boolean;
   description: string;
   location: string;
-  coordinates: string;
-  price: string;
+  latitude: number;
+  longitude: number;
+  price: number;
   eventApiId: number;
   bookingLink: string;
   type: string;
