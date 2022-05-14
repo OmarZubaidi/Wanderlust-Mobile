@@ -1,8 +1,7 @@
-import { Platform, Text, View } from 'react-native';
+import { Platform, Text, TouchableOpacity, View } from 'react-native';
 import { AgendaEntry } from 'react-native-calendars';
 import * as Calendar from 'expo-calendar';
-import { colorStyles } from '../styles';
-import convertDateToDay from './convertDateToDay';
+import { calendarStyles, colorStyles, touchableStyles } from '../styles';
 
 async function getDefaultCalendarSource() {
   const defaultCalendar = await Calendar.getDefaultCalendarAsync();
@@ -25,19 +24,49 @@ export async function createCalendar(tripName: string) {
   });
 }
 
-export function renderItem(item: AgendaEntry) {
+export function renderItem(item: AgendaEntry, navigation: any) {
+  // Ignoring TS in some places since AgendaEntry doesn't have all the
+  // properties I need, but I need to use that type to make it work.
   return (
-    <View>
-      <Text>{item.name}</Text>
-    </View>
-  );
-}
-
-export function renderDay(day: any, item: AgendaEntry) {
-  return (
-    <View>
-      <Text>{convertDateToDay(day).split(' ')[2]}</Text>
-      <View>{renderItem(item!)}</View>
-    </View>
+    <TouchableOpacity
+      activeOpacity={touchableStyles}
+      style={[calendarStyles.styleObject.item]}
+      onPress={() => {
+        navigation.navigate('Map', {
+          screen: 'MapScreen',
+          params: {
+            //@ts-ignore
+            latitude: item.latitude,
+            //@ts-ignore
+            longitude: item.longitude,
+          },
+        });
+      }}
+    >
+      <Text
+        style={[
+          calendarStyles.styleObject.itemText,
+          calendarStyles.styleObject.itemTitle,
+        ]}
+      >
+        {item.name}
+      </Text>
+      <View style={[calendarStyles.styleObject.horizontal]}>
+        <Text style={[calendarStyles.styleObject.itemText]}>
+          {/* @ts-ignore */}
+          {item.start} to {item.end}
+        </Text>
+        {/* @ts-ignore */}
+        {item.price > 0 && (
+          <Text style={[calendarStyles.styleObject.itemText]}>
+            €{item.price}
+          </Text>
+        )}
+      </View>
+      <Text style={[calendarStyles.styleObject.itemText]}>
+        {/* @ts-ignore */}
+        {item.description}
+      </Text>
+    </TouchableOpacity>
   );
 }

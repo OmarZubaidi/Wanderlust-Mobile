@@ -4,13 +4,25 @@ import { IEvent } from '../interfaces';
 export default function formatEvents(events: IEvent[]) {
   const formattedEvents = events.map((event) => {
     const day = event.start.split('T')[0];
-    const start = event.start.split('T')[1].slice(0, -1);
-    const end = event.end.split('T')[1].slice(0, -1);
+    const start = event.start.split('T')[1].slice(0, 5);
+    const end = event.end.split('T')[1].slice(0, 5);
     const name = event.title;
-    const height =
-      (dateStringToTimestamp(event.end) - dateStringToTimestamp(event.start)) /
-      ((60 * 60 * 1000) / 80);
-    return { name, day, height, start, end };
+    const price = event.price;
+    const description = event.description;
+    const latitude = event.latitude;
+    const longitude = event.longitude;
+    const height = 0;
+    return {
+      name,
+      description,
+      price,
+      day,
+      height,
+      start,
+      end,
+      latitude,
+      longitude,
+    };
   });
   const returnValue: AgendaSchedule = {};
   formattedEvents.forEach((event) => {

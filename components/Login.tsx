@@ -7,7 +7,7 @@ import {
   TextInput,
 } from 'react-native';
 import * as WebBrowser from 'expo-web-browser';
-import { imageStyles, styles, loginStyles } from '../styles';
+import { imageStyles, styles, loginStyles, touchableStyles } from '../styles';
 import { useAuthContext } from '../contexts';
 
 WebBrowser.maybeCompleteAuthSession();
@@ -43,11 +43,16 @@ function Login() {
             secureTextEntry={true}
             style={loginStyles.input}
           />
-          <TouchableOpacity style={[loginStyles.button]} onPress={() => {}}>
+          <TouchableOpacity
+            activeOpacity={touchableStyles}
+            style={[loginStyles.button]}
+            onPress={() => {}}
+          >
             <Text style={[loginStyles.buttonText]}>Login</Text>
           </TouchableOpacity>
         </View>
         <TouchableOpacity
+          activeOpacity={touchableStyles}
           style={[loginStyles.bottomView]}
           onPress={() => promptAsync()}
         >
