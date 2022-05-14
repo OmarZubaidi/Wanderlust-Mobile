@@ -3,6 +3,7 @@ export default {
   blackish: '#011526',
   grey: '#394A59',
   greyShadow: '#394A5944',
+  tabBlue: '#0469BC',
   seaBlue: '#5E9CB5',
   greyishBlue: '#69AFBF',
   greyishSkyBlue: '#B6D6F2',

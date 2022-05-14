@@ -5,15 +5,13 @@ export default StyleSheet.create({
   container: {
     flex: 0.1,
     flexDirection: 'row',
-    backgroundColor: colors.beige,
+    backgroundColor: colors.white,
     paddingVertical: 10,
     paddingHorizontal: 25,
-    marginVertical: 10,
     alignItems: 'center',
     alignSelf: 'center',
     justifyContent: 'space-between',
-    width: '97.5%',
-    borderRadius: 15,
+    width: '100%',
   },
   vertical: {
     flexDirection: 'column',
@@ -21,6 +19,11 @@ export default StyleSheet.create({
   city: {
     fontWeight: 'bold',
     fontSize: 24,
-    color: colors.darkestBlue,
+  },
+  textColor: {
+    color: colors.grey,
+  },
+  bottomBorder: {
+    borderBottomWidth: 0.5,
   },
 });

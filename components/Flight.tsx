@@ -6,7 +6,6 @@ import {
   colorStyles,
   flightAndHotelStyles,
   iconStyles,
-  imageStyles,
   styles,
 } from '../styles';
 import { IFlight } from '../interfaces';
@@ -92,20 +91,14 @@ function flightRenderer(flight: IFlight) {
 function Flight() {
   return (
     <>
-      <ImageBackground
-        source={require('../assets/flight.jpg')}
-        resizeMode='cover'
-        style={[imageStyles.background]}
-      >
-        <View style={[styles.container]}>
-          <FlatList
-            data={FLIGHTS}
-            keyExtractor={(item) => `${item.userId}-${item.tripId}`}
-            renderItem={({ item }) => flightRenderer(item)}
-          />
-        </View>
-        <TripOverview />
-      </ImageBackground>
+      <TripOverview borderBottomColor={colorStyles.grey} />
+      <View style={[styles.container]}>
+        <FlatList
+          data={FLIGHTS}
+          keyExtractor={(item) => `${item.userId}-${item.tripId}`}
+          renderItem={({ item }) => flightRenderer(item)}
+        />
+      </View>
     </>
   );
 }

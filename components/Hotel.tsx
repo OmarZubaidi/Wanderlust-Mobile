@@ -1,12 +1,11 @@
 import React from 'react';
-import { FlatList, ImageBackground, Text, View } from 'react-native';
+import { FlatList, Text, View } from 'react-native';
 import { convertDateToDay } from '../helpers';
 import { IHotel } from '../interfaces';
 import {
   colorStyles,
   flightAndHotelStyles,
   iconStyles,
-  imageStyles,
   styles,
 } from '../styles';
 import Friends from './Friends';
@@ -80,20 +79,14 @@ function hotelRenderer(hotel: IHotel) {
 function Hotel() {
   return (
     <>
-      <ImageBackground
-        source={require('../assets/hotel.jpg')}
-        resizeMode='cover'
-        style={[imageStyles.background]}
-      >
-        <View style={[styles.container]}>
-          <FlatList
-            data={HOTELS}
-            keyExtractor={(item) => `${item.userId}-${item.tripId}`}
-            renderItem={({ item }) => hotelRenderer(item)}
-          />
-        </View>
-        <TripOverview />
-      </ImageBackground>
+      <TripOverview borderBottomColor={colorStyles.grey} />
+      <View style={[styles.container]}>
+        <FlatList
+          data={HOTELS}
+          keyExtractor={(item) => `${item.userId}-${item.tripId}`}
+          renderItem={({ item }) => hotelRenderer(item)}
+        />
+      </View>
     </>
   );
 }

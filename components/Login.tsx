@@ -4,10 +4,7 @@ import {
   Text,
   TouchableOpacity,
   View,
-  Button,
   TextInput,
-  Pressable,
-  Alert,
 } from 'react-native';
 import * as WebBrowser from 'expo-web-browser';
 import { imageStyles, styles, loginStyles } from '../styles';
@@ -32,7 +29,11 @@ function Login() {
         style={[imageStyles.background]}
       >
         <View style={[styles.container, loginStyles.container]}>
-          <Text style={[loginStyles.heading]}>Login</Text>
+          <Text
+            style={[loginStyles.heading, { fontFamily: 'Inter_400Regular' }]}
+          >
+            Login
+          </Text>
           <TextInput
             value={''}
             onChangeText={() => {}}
