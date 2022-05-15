@@ -86,7 +86,6 @@ function Map({ route }: IProps) {
       if (permissionGranted) {
         const location = await Location.getCurrentPositionAsync();
         const { latitude, longitude } = location.coords;
-        // TODO Yay. Now do something with it.
         setUserLocation({ latitude, longitude });
       }
     } catch (error) {

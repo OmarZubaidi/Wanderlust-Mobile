@@ -12,30 +12,35 @@ import Friends from './Friends';
 import { HotelIcon } from './Icons';
 import TripOverview from './TripOverview';
 
-const HOTELS = [
+const HOTELS: IHotel[] = [
   {
     name: 'Teds Plaza',
     location: 'Austria',
-    coordinates: '123, 5678',
+    latitude: 123,
+    longitude: 5678,
     arrival: '2022-05-09T14:15:18.532Z',
     departure: '2022-05-14T14:15:18.532Z',
     nights: 5,
-    priceTotal: '303 €',
-    hotelApiId: 142,
-    userId: 14,
-    tripId: 1,
+    priceTotal: 303,
+    hotelApiId: '142',
+    description: 'Why hello there.',
+    type: 'hotel',
+    rating: '3',
   },
   {
     name: 'Grand Budapest Hotel',
     location: 'Austria',
-    coordinates: '567, 8123',
+    latitude: 567,
+    longitude: 8123,
     arrival: '2022-05-14T14:15:18.532Z',
     departure: '2022-05-19T14:15:18.532Z',
     nights: 5,
-    priceTotal: '404 €',
-    hotelApiId: 142,
-    userId: 15,
-    tripId: 2,
+    priceTotal: 404,
+    hotelApiId: '142',
+    description:
+      'Welcome to the hotel California! Such a lovely place, such a lovely place. Such a lovely face.',
+    type: 'hotel',
+    rating: '4.9',
   },
 ];
 
@@ -55,22 +60,39 @@ function hotelRenderer(hotel: IHotel) {
 
   return (
     <View style={[flightAndHotelStyles.container]}>
-      <Text style={[flightAndHotelStyles.centerContent]}>{arrivalDay}</Text>
-      <View style={[flightAndHotelStyles.dividerMiddle]} />
-      <View style={[flightAndHotelStyles.centerContent]}>
-        <Text style={[flightAndHotelStyles.innerText]}>{nights} nights</Text>
-        <HotelIcon color={colorStyles.darkestBlue} />
-        <Text style={[flightAndHotelStyles.innerText]}>{name}</Text>
+      <View style={[flightAndHotelStyles.dividerEnd]}>
+        <Text
+          style={[
+            flightAndHotelStyles.centerContent,
+            flightAndHotelStyles.smallerText,
+          ]}
+        >
+          Check-in
+        </Text>
+        <Text style={[flightAndHotelStyles.centerContent]}>{arrivalDay}</Text>
+      </View>
+      <View>
+        <Text
+          style={[
+            flightAndHotelStyles.centerContent,
+            flightAndHotelStyles.smallerText,
+          ]}
+        >
+          Check-out
+        </Text>
+        <Text style={[flightAndHotelStyles.centerContent]}>{departureDay}</Text>
       </View>
       <View style={[flightAndHotelStyles.dividerMiddle]} />
-      <Text
+      <View
         style={[
           flightAndHotelStyles.centerContent,
           flightAndHotelStyles.dividerEnd,
         ]}
       >
-        {departureDay}
-      </Text>
+        <Text style={[flightAndHotelStyles.innerText]}>{nights} nights</Text>
+        <HotelIcon color={colorStyles.darkestBlue} size={iconStyles.smaller} />
+        <Text style={[flightAndHotelStyles.innerText]}>{name}</Text>
+      </View>
       <Friends friends={FRIENDS_IMAGES} size={iconStyles.bigger} />
     </View>
   );
@@ -83,7 +105,7 @@ function Hotel() {
       <View style={[styles.container]}>
         <FlatList
           data={HOTELS}
-          keyExtractor={(item) => `${item.userId}-${item.tripId}`}
+          keyExtractor={(item) => `${item.arrival}-${item.hotelApiId}`}
           renderItem={({ item }) => hotelRenderer(item)}
         />
       </View>

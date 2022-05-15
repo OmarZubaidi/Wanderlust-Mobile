@@ -4,16 +4,12 @@ import { iconStyles } from '../../styles';
 
 interface IProps {
   color: string;
+  size?: number;
 }
 
-function CalendarIcon({ color }: IProps) {
+function CalendarIcon({ color, size = iconStyles.bigger }: IProps) {
   return (
-    <Svg
-      width={iconStyles.bigger}
-      height={iconStyles.bigger}
-      viewBox='0 0 471.2 471.2'
-      fill={color}
-    >
+    <Svg width={size} height={size} viewBox='0 0 471.2 471.2' fill={color}>
       <G>
         <G>
           <Path

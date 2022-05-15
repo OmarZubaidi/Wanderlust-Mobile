@@ -1,12 +1,14 @@
-export default interface IFlight {
+export default interface IHotel {
   name: string;
   location: string;
-  coordinates: string;
+  latitude: number;
+  longitude: number;
   arrival: string;
   departure: string;
   nights: number;
-  priceTotal: string;
-  hotelApiId: number;
-  userId: number;
-  tripId: number;
+  priceTotal: number;
+  hotelApiId: string;
+  description: string;
+  type: string;
+  rating: string;
 }
