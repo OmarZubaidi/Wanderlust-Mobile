@@ -39,7 +39,10 @@ function AuthProvider({ children }: IProps) {
   }
 
   async function logout(accessToken: string) {
-    console.log(`logout(${accessToken})`);
+    if (!accessToken) {
+      setUserDetails({ email: null, accessToken: null });
+      return;
+    }
     const headers = {
       'Content-type': 'application/x-www-form-urlencoded',
     };
@@ -51,7 +54,6 @@ function AuthProvider({ children }: IProps) {
       response.authentication = null; //find better way to remove response
       setUserDetails({ email: null, accessToken: null });
     } catch (error: any) {
-      console.log('logout error', error);
       Alert.alert(
         'Error',
         'There was a problem logging out. Please try again.'
@@ -59,7 +61,7 @@ function AuthProvider({ children }: IProps) {
     }
   }
 
-  async function login() {
+  async function googleLogin() {
     console.log('login()');
     if (response && response.authentication) {
       console.log(response.type);
@@ -90,7 +92,7 @@ function AuthProvider({ children }: IProps) {
     request,
     response,
     promptAsync,
-    login,
+    googleLogin,
     logout,
   };
 

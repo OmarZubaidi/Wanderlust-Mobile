@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { FlatList, ImageBackground, Text, View } from 'react-native';
 import 'intl';
 import 'intl/locale-data/jsonp/en';
@@ -8,11 +8,12 @@ import {
   iconStyles,
   styles,
 } from '../styles';
-import { IFlight } from '../interfaces';
+import { IFlight, Itinerary } from '../interfaces';
 import { convertDateToDay, convertDateToTime } from '../helpers';
 import TripOverview from './TripOverview';
 import { FlightIcon } from './Icons';
 import Friends from './Friends';
+import { useTripContext, useUserContext } from '../contexts';
 
 const FLIGHTS = [
   {
@@ -21,7 +22,7 @@ const FLIGHTS = [
     gate: 'B',
     depAirport: 'London',
     arrAirport: 'Barcelona',
-    lengthOfFlight: '2:30 h',
+    lengthOfFlight: 'PT1H45M',
     price: '230 €',
     flightApiId: 1234,
     userId: 16,
@@ -33,7 +34,7 @@ const FLIGHTS = [
     gate: 'A',
     depAirport: 'Barcelona',
     arrAirport: 'London',
-    lengthOfFlight: '2:30 h',
+    lengthOfFlight: 'PT1H45M',
     price: '230 €',
     flightApiId: 1235,
     userId: 16,
@@ -49,12 +50,17 @@ const FRIENDS_IMAGES = [
 ];
 
 function flightRenderer(flight: IFlight) {
-  const { departure, arrival, depAirport, arrAirport, lengthOfFlight } = flight;
+  const { departure, arrival, depAirport, arrAirport } = JSON.parse(
+    flight.itineraries
+  )[0];
+  const { lengthOfFlight } = flight;
   const departureDate = new Date(departure);
   const departureDay = convertDateToDay(departureDate).split(' ').join('\n');
   const departureTime = convertDateToTime(departureDate);
   const arrivalTime = convertDateToTime(new Date(arrival));
-  const flightLength = lengthOfFlight.split(' ')[0].split(':').join('h ') + 'm';
+  const flightLength = lengthOfFlight; //.split(' ')[0].split(':').join('h ') + 'm';
+
+  const users = flight.Users?.map(user => user.pictureUrl);
 
   return (
     <View style={[flightAndHotelStyles.container]}>
@@ -83,19 +89,22 @@ function flightRenderer(flight: IFlight) {
         <Text style={[flightAndHotelStyles.innerText]}>{arrivalTime}</Text>
         <Text style={[flightAndHotelStyles.innerText]}>{arrAirport}</Text>
       </View>
-      <Friends friends={FRIENDS_IMAGES} size={iconStyles.bigger} />
+      <Friends friends={users!} size={iconStyles.bigger} />
     </View>
   );
 }
 
 function Flight() {
+  const { tripDetails } = useTripContext();
+  const { userDetails } = useUserContext();
+
   return (
     <>
       <TripOverview borderBottomColor={colorStyles.grey} />
       <View style={[styles.container]}>
         <FlatList
-          data={FLIGHTS}
-          keyExtractor={(item) => `${item.userId}-${item.tripId}`}
+          data={tripDetails.Flights}
+          keyExtractor={item => `${userDetails.id}-${item.id}`} //change user id
           renderItem={({ item }) => flightRenderer(item)}
         />
       </View>
