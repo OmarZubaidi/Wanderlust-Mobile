@@ -9,8 +9,7 @@ import {
 } from 'react-native';
 import * as WebBrowser from 'expo-web-browser';
 import { imageStyles, styles, loginStyles, touchableStyles } from '../styles';
-import { useAuthContext } from '../contexts';
-import { useUserContext } from '../contexts';
+import { useAuthContext, useUserContext } from '../contexts';
 import axios from 'axios';
 
 WebBrowser.maybeCompleteAuthSession();
@@ -27,7 +26,7 @@ function Login() {
     }
   }, [response]);
 
-  function noGoogleLogin() {
+  function emailLogin() {
     axios
       .post('https://api-wanderlust-dogs.herokuapp.com/users/login/mobile', {
         email,
@@ -47,9 +46,9 @@ function Login() {
               accessToken: null,
             });
           })
-          .catch(error => Alert.alert('User info fetch failed'));
+          .catch(error => Alert.alert('Error', 'Failed fetching user data'));
       })
-      .catch(error => Alert.alert('Login failed, try again'));
+      .catch(error => Alert.alert('Login Error', 'Login failed, try again'));
   }
 
   return (
@@ -77,7 +76,7 @@ function Login() {
           <TouchableOpacity
             activeOpacity={touchableStyles}
             style={[loginStyles.button]}
-            onPress={noGoogleLogin}
+            onPress={emailLogin}
           >
             <Text style={[loginStyles.buttonText]}>Login</Text>
           </TouchableOpacity>

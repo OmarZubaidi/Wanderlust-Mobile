@@ -37,7 +37,6 @@ function AuthProvider({ children }: IProps) {
   }
 
   async function logout(accessToken: string) {
-
     if (!accessToken) {
       setUserDetails({ email: null, accessToken: null });
       return;
@@ -61,7 +60,6 @@ function AuthProvider({ children }: IProps) {
   }
 
   async function googleLogin() {
-    console.log('login()');
     if (response && response.authentication) {
       if (response.type === 'success') {
         const accessToken = response.authentication.accessToken;
@@ -72,7 +70,6 @@ function AuthProvider({ children }: IProps) {
           );
           setUserDetails(user);
         } catch (error: any) {
-          console.log('login error', error);
           Alert.alert(
             'Login Error',
             'Please register in the browser or login with a valid user. If you already have an account, please try again.'

@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { FlatList, ImageBackground, Text, View } from 'react-native';
+import React from 'react';
+import { FlatList, Text, View } from 'react-native';
 import 'intl';
 import 'intl/locale-data/jsonp/en';
 import {
@@ -8,7 +8,7 @@ import {
   iconStyles,
   styles,
 } from '../styles';
-import { IFlight, Itinerary } from '../interfaces';
+import { IFlight } from '../interfaces';
 import { convertDateToDay, convertDateToTime } from '../helpers';
 import TripOverview from './TripOverview';
 import { FlightIcon } from './Icons';
@@ -66,8 +66,7 @@ function flightRenderer(flight: IFlight) {
   const departureDay = convertDateToDay(departureDate).split(' ').join('\n');
   const departureTime = convertDateToTime(departureDate);
   const arrivalTime = convertDateToTime(new Date(arrival));
-  const flightLength = lengthOfFlight; //.split(' ')[0].split(':').join('h ') + 'm';
-
+  const flightLength = lengthOfFlight.slice(2).split('H').join('H ');
   const users = flight.Users?.map(user => user.pictureUrl);
 
   return (
@@ -112,7 +111,7 @@ function Flight() {
       <View style={[styles.container]}>
         <FlatList
           data={FLIGHTS}
-          keyExtractor={(item) => `${item.flightApiId}`}
+          keyExtractor={item => `${item.flightApiId}`}
           renderItem={({ item }) => flightRenderer(item)}
         />
       </View>
