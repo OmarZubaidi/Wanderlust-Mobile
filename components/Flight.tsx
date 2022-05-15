@@ -15,30 +15,40 @@ import { FlightIcon } from './Icons';
 import Friends from './Friends';
 import { useTripContext, useUserContext } from '../contexts';
 
-const FLIGHTS = [
+const FLIGHTS: IFlight[] = [
   {
-    departure: '2022-05-30T00:00:00.000Z',
-    arrival: '2022-05-30T02:00:00.000Z',
-    gate: 'B',
-    depAirport: 'London',
-    arrAirport: 'Barcelona',
-    lengthOfFlight: 'PT1H45M',
-    price: '230 €',
+    departureCity: 'London',
+    arrivalCity: 'Barcelona',
+    lengthOfFlight: '2:30 h',
+    price: 230,
     flightApiId: 1234,
-    userId: 16,
-    tripId: 2,
+    itineraries: [
+      {
+        depAirport: 'London',
+        arrAirport: 'Barcelona',
+        depTerminal: '2',
+        arrTerminal: '1',
+        departure: '2022-05-30T10:00:00.000Z',
+        arrival: '2022-05-30T10:00:00.000Z',
+      },
+    ],
   },
   {
-    departure: '2022-06-10T00:00:00.000Z',
-    arrival: '2022-06-10T02:00:00.000Z',
-    gate: 'A',
-    depAirport: 'Barcelona',
-    arrAirport: 'London',
-    lengthOfFlight: 'PT1H45M',
-    price: '230 €',
+    departureCity: 'Barcelona',
+    arrivalCity: 'London',
+    lengthOfFlight: '2:30 h',
+    price: 230,
     flightApiId: 1235,
-    userId: 16,
-    tripId: 3,
+    itineraries: [
+      {
+        depAirport: 'London',
+        arrAirport: 'Barcelona',
+        depTerminal: '2',
+        arrTerminal: '1',
+        departure: '2022-06-02T10:00:00.000Z',
+        arrival: '2022-06-02T10:00:00.000Z',
+      },
+    ],
   },
 ];
 
@@ -50,10 +60,8 @@ const FRIENDS_IMAGES = [
 ];
 
 function flightRenderer(flight: IFlight) {
-  const { departure, arrival, depAirport, arrAirport } = JSON.parse(
-    flight.itineraries
-  )[0];
   const { lengthOfFlight } = flight;
+  const { departure, arrival, depAirport, arrAirport } = flight.itineraries[0];
   const departureDate = new Date(departure);
   const departureDay = convertDateToDay(departureDate).split(' ').join('\n');
   const departureTime = convertDateToTime(departureDate);
@@ -103,8 +111,8 @@ function Flight() {
       <TripOverview borderBottomColor={colorStyles.grey} />
       <View style={[styles.container]}>
         <FlatList
-          data={tripDetails.Flights}
-          keyExtractor={item => `${userDetails.id}-${item.id}`} //change user id
+          data={FLIGHTS}
+          keyExtractor={(item) => `${item.flightApiId}`}
           renderItem={({ item }) => flightRenderer(item)}
         />
       </View>

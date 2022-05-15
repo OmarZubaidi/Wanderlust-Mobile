@@ -10,6 +10,7 @@ import logoutStyles from './logout';
 import * as mapStyles from './maps';
 import navigationStyles from './navigation';
 import tabStyles from './tabs';
+import touchableStyles from './touchables';
 import tripOverviewStyles from './tripOverview';
 
 export {
@@ -25,5 +26,6 @@ export {
   mapStyles,
   navigationStyles,
   tabStyles,
+  touchableStyles,
   tripOverviewStyles,
 };

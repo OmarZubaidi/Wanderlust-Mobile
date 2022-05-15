@@ -8,7 +8,7 @@ import {
   Alert,
 } from 'react-native';
 import * as WebBrowser from 'expo-web-browser';
-import { imageStyles, styles, loginStyles } from '../styles';
+import { imageStyles, styles, loginStyles, touchableStyles } from '../styles';
 import { useAuthContext } from '../contexts';
 import { useUserContext } from '../contexts';
 import axios from 'axios';
@@ -60,7 +60,7 @@ function Login() {
         style={[imageStyles.background]}
       >
         <View style={[styles.container, loginStyles.container]}>
-          <Text style={[loginStyles.heading /*   */]}>Login</Text>
+          <Text style={[loginStyles.heading]}>Login</Text>
           <TextInput
             value={email}
             onChangeText={setEmail}
@@ -75,6 +75,7 @@ function Login() {
             style={loginStyles.input}
           />
           <TouchableOpacity
+            activeOpacity={touchableStyles}
             style={[loginStyles.button]}
             onPress={noGoogleLogin}
           >
@@ -82,6 +83,7 @@ function Login() {
           </TouchableOpacity>
         </View>
         <TouchableOpacity
+          activeOpacity={touchableStyles}
           style={[loginStyles.bottomView]}
           onPress={() => promptAsync()}
         >

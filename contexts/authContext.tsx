@@ -22,12 +22,10 @@ function AuthProvider({ children }: IProps) {
   });
 
   async function fetchUserDetails(accessToken: string) {
-    console.log(`fetchUserDetails(${accessToken})`);
     try {
       const response = await axios.get(
         `https://www.googleapis.com/oauth2/v3/userinfo?access_token=${accessToken}`
       );
-      console.log('fetchUserDetails got data', response.data);
       return {
         ...response.data,
         accessToken,
@@ -39,6 +37,7 @@ function AuthProvider({ children }: IProps) {
   }
 
   async function logout(accessToken: string) {
+
     if (!accessToken) {
       setUserDetails({ email: null, accessToken: null });
       return;
@@ -64,13 +63,10 @@ function AuthProvider({ children }: IProps) {
   async function googleLogin() {
     console.log('login()');
     if (response && response.authentication) {
-      console.log(response.type);
       if (response.type === 'success') {
         const accessToken = response.authentication.accessToken;
-        console.log(accessToken);
         try {
           const user = await fetchUserDetails(accessToken);
-          console.log('login get details', user);
           const result = await axios.get(
             `https://api-wanderlust-dogs.herokuapp.com/users/email/${user.email}`
           );
