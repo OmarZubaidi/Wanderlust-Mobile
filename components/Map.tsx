@@ -1,11 +1,11 @@
-import React from 'react';
-import { Platform } from 'react-native';
+import React, { useState } from 'react';
 import MapView, { Marker } from 'react-native-maps';
-import Geolocation from 'react-native-geolocation-service';
-import { requestPermissionAndReturn } from '../helpers';
+import MapViewDirections from 'react-native-maps-directions';
+import * as Location from 'expo-location';
 import { IEvent } from '../interfaces';
 import { colorStyles, mapStyles } from '../styles';
 import TripOverview from './TripOverview';
+import ENV from '../config/env';
 
 const LOCATION = {
   latitude: 51.5072,
@@ -51,52 +51,21 @@ const EVENTS = [
   },
 ];
 
-// TODO Doesn't work, but does ask for permission
-async function getUserLocation() {
-  try {
-    const permissionGranted = await requestPermissionAndReturn(
-      'android.permission.ACCESS_FINE_LOCATION',
-      {
-        title: 'Location',
-        message: 'Please allow fine location permission to enable map usage',
-        buttonPositive: 'Enable',
-      }
-    );
-    if (permissionGranted) {
-      console.log('inside permissionGranted');
-      Geolocation.getCurrentPosition(
-        (position) => {
-          const { latitude, longitude } = position.coords;
-          console.log('Lat Lng', latitude, longitude);
-        },
-        (error) => {
-          console.warn(`Error (${error.code}): ${error.message}`);
-        },
-        {
-          accuracy: {
-            android: 'high',
-            ios: 'best',
-          },
-          timeout: 15000,
-          maximumAge: 5000,
-        }
-      );
-    }
-  } catch (error) {
-    console.log(error);
-  }
-}
-
 function markerRenderer(event: IEvent) {
   const { eventApiId, latitude, longitude, title, description } = event;
   return (
     <Marker
       key={eventApiId}
+      anchor={{ x: 0.5, y: 1 }}
       coordinate={{ latitude, longitude }}
       title={title}
       description={description}
-      // TODO Add custom map markers using logo
-      pinColor={Platform.OS === 'ios' ? colorStyles.beige : 'tan'}
+      style={{ width: 10 }}
+      tracksViewChanges={true}
+      onPress={(item) => {
+        console.log(item.nativeEvent.coordinate);
+      }}
+      icon={require('../assets/pinSmall.png')}
     />
   );
 }
@@ -106,7 +75,24 @@ interface IProps {
 }
 
 function Map({ route }: IProps) {
-  console.log('component', route);
+  const [userLocation, setUserLocation] = useState({
+    latitude: 0,
+    longitude: 0,
+  });
+  async function getUserLocation() {
+    try {
+      const permissionGranted =
+        await Location.requestForegroundPermissionsAsync();
+      if (permissionGranted) {
+        const location = await Location.getCurrentPositionAsync();
+        const { latitude, longitude } = location.coords;
+        setUserLocation({ latitude, longitude });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <>
       <TripOverview borderBottomColor={colorStyles.white} />
@@ -119,8 +105,18 @@ function Map({ route }: IProps) {
         showsUserLocation={true}
         showsMyLocationButton={true}
         followsUserLocation={true}
+        tintColor={colorStyles.red}
       >
         {EVENTS.map(markerRenderer)}
+        {route.params && (
+          <MapViewDirections
+            origin={userLocation}
+            destination={route.params}
+            apikey={ENV.googleMapsApiKey}
+            strokeWidth={5}
+            strokeColor={colorStyles.beige}
+          />
+        )}
       </MapView>
     </>
   );

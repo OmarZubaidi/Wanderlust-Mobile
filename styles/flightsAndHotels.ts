@@ -5,12 +5,11 @@ export default StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'row',
-    backgroundColor: colors.greyishSkyBlue,
-    padding: 10,
+    backgroundColor: colors.white,
+    padding: 5,
     marginVertical: 10,
     alignItems: 'center',
     justifyContent: 'space-between',
-    borderRadius: 15,
   },
   centerContent: {
     justifyContent: 'center',
@@ -19,20 +18,26 @@ export default StyleSheet.create({
   },
   dividerStart: {
     borderLeftWidth: 0.5,
-    borderLeftColor: colors.grey,
+    borderLeftColor: colors.greyShadow,
     paddingLeft: 10,
   },
   dividerEnd: {
     borderRightWidth: 0.5,
-    borderRightColor: colors.grey,
+    borderRightColor: colors.greyShadow,
     paddingRight: 10,
   },
   dividerMiddle: {
     borderBottomWidth: 0.5,
-    borderBottomColor: colors.grey,
+    borderBottomColor: colors.greyShadow,
     paddingHorizontal: 5,
   },
   innerText: {
     fontWeight: '200',
+    fontSize: 12,
+    paddingVertical: 5,
+  },
+  smallerText: {
+    fontWeight: '200',
+    fontSize: 8,
   },
 });

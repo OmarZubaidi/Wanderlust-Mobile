@@ -1,14 +1,16 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 import { convertDateToDay } from '../helpers';
+import { ITrip } from '../interfaces';
 import { iconStyles, tripOverviewStyles } from '../styles';
 import Friends from './Friends';
 
-const TRIP = {
+const TRIP: ITrip = {
+  start: '2022-05-30T00:00:00.000Z',
+  end: '2022-06-02T12:00:00.000Z',
   destination: 'Barcelona',
-  departure: '1971-02-01T00:00:00.000Z',
-  return: '2022-01-01T02:00:00.000Z',
-  friends: [16, 15, 14, 13],
+  latitude: 41.390205,
+  longitude: 2.154007,
 };
 
 const FRIENDS_IMAGES = [
@@ -23,8 +25,8 @@ interface IProps {
 }
 
 function TripOverview({ borderBottomColor }: IProps) {
-  const tripStart = convertDateToDay(new Date(TRIP.departure));
-  const tripEnd = convertDateToDay(new Date(TRIP.return));
+  const tripStart = convertDateToDay(new Date(TRIP.start));
+  const tripEnd = convertDateToDay(new Date(TRIP.end));
   return (
     <View
       style={[
