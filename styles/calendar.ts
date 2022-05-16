@@ -12,10 +12,6 @@ export const styleObject = StyleSheet.create({
   },
   itemText: {
     color: colors.white,
-    fontWeight: '300',
-  },
-  itemTitle: {
-    fontWeight: 'bold',
   },
   horizontal: {
     flexDirection: 'row',
@@ -43,8 +39,8 @@ export const agenda = {
   todayBackgroundColor: colors.beige,
   disabledDotColor: colors.blue,
   // TODO add fonts
-  // textDayFontFamily: TextStyle['Inter_400Regular'],
-  // textMonthFontFamily: TextStyle['Inter_400Regular'],
-  // textDayHeaderFontFamily: TextStyle['Inter_400Regular'],
-  // todayButtonFontFamily: TextStyle['Inter_400Regular'],
+  textDayFontFamily: 'Inter_400Regular',
+  textMonthFontFamily: 'Inter_400Regular',
+  textDayHeaderFontFamily: 'Inter_700Bold',
+  todayButtonFontFamily: 'Inter_400Regular',
 };

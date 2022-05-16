@@ -17,7 +17,6 @@ export default StyleSheet.create({
     flexDirection: 'column',
   },
   city: {
-    fontWeight: 'bold',
     fontSize: 24,
   },
   textColor: {

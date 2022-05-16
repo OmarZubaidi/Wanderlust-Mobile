@@ -66,22 +66,26 @@ function hotelRenderer(hotel: IHotel) {
             style={[
               flightAndHotelStyles.centerContent,
               flightAndHotelStyles.smallerText,
+              styles.font,
             ]}
           >
             Check-in
           </Text>
-          <Text style={[flightAndHotelStyles.centerContent]}>{arrivalDay}</Text>
+          <Text style={[flightAndHotelStyles.centerContent, styles.font]}>
+            {arrivalDay}
+          </Text>
         </View>
         <View style={[flightAndHotelStyles.checkout]}>
           <Text
             style={[
               flightAndHotelStyles.centerContent,
               flightAndHotelStyles.smallerText,
+              styles.font,
             ]}
           >
             Check-out
           </Text>
-          <Text style={[flightAndHotelStyles.centerContent]}>
+          <Text style={[flightAndHotelStyles.centerContent, styles.font]}>
             {departureDay}
           </Text>
         </View>
@@ -94,9 +98,13 @@ function hotelRenderer(hotel: IHotel) {
           flightAndHotelStyles.maxWidth,
         ]}
       >
-        <Text style={[flightAndHotelStyles.innerText]}>{nights} nights</Text>
+        <Text style={[flightAndHotelStyles.innerText, styles.fontExtraLight]}>
+          {nights} nights
+        </Text>
         <HotelIcon color={colorStyles.blue} size={iconStyles.smaller} />
-        <Text style={[flightAndHotelStyles.innerText]}>{name}</Text>
+        <Text style={[flightAndHotelStyles.innerText, styles.fontExtraLight]}>
+          {name}
+        </Text>
       </View>
       <Friends friends={FRIENDS_IMAGES} size={iconStyles.bigger} />
     </View>

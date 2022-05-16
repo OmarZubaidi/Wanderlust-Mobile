@@ -11,7 +11,6 @@ export default StyleSheet.create({
     marginLeft: '23.5%',
     color: colors.navy,
     fontSize: 24,
-    fontWeight: 'bold',
   },
   input: {
     width: 200,
@@ -47,8 +46,7 @@ export default StyleSheet.create({
   },
   bottomText: {
     textAlign: 'center',
-    fontWeight: 'bold',
-    fontSize: 18,
+    fontSize: 16,
   },
   google: {
     color: colors.blue,

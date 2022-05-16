@@ -29,13 +29,11 @@ export default StyleSheet.create({
     textAlign: 'center',
   },
   innerText: {
-    fontWeight: '200',
     fontSize: 12,
     paddingVertical: 5,
     textAlign: 'center',
   },
   smallerText: {
-    fontWeight: '200',
     fontSize: 8,
   },
   dividerStart: {
