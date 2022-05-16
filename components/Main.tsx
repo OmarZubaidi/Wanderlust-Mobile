@@ -7,13 +7,13 @@ import { useUserContext } from '../contexts';
 
 export default function Main() {
   // TODO bring this back
-  // const { userDetails } = useUserContext();
+  const { userDetails } = useUserContext();
 
   // TODO
   // ! DELETE THIS
-  const userDetails = {
+  /*  const userDetails = {
     email: 'test',
-  };
+  }; */
   return (
     <NavigationContainer theme={navigationStyles}>
       {userDetails.email ? <Tabs /> : <LoginScreen />}

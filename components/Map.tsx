@@ -6,6 +6,7 @@ import { IEvent } from '../interfaces';
 import { colorStyles, mapStyles } from '../styles';
 import TripOverview from './TripOverview';
 import ENV from '../config/env';
+import { useTripContext } from '../contexts';
 
 const LOCATION = {
   latitude: 51.5072,
@@ -62,7 +63,7 @@ function markerRenderer(event: IEvent) {
       description={description}
       style={{ width: 10 }}
       tracksViewChanges={true}
-      onPress={(item) => {
+      onPress={item => {
         console.log(item.nativeEvent.coordinate);
       }}
       icon={
@@ -83,6 +84,8 @@ function Map({ route }: IProps) {
     latitude: 0,
     longitude: 0,
   });
+  const { tripDetails } = useTripContext();
+
   async function getUserLocation() {
     try {
       const permissionGranted =
@@ -110,7 +113,7 @@ function Map({ route }: IProps) {
         followsUserLocation={true}
         tintColor={colorStyles.red}
       >
-        {EVENTS.map(markerRenderer)}
+        {tripDetails.Events.map(markerRenderer)}
         {/* TODO Add hotel location markerRenderer */}
         {route.params && (
           <MapViewDirections

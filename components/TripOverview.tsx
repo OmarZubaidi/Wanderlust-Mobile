@@ -4,6 +4,7 @@ import { convertDateToDay } from '../helpers';
 import { ITrip } from '../interfaces';
 import { iconStyles, tripOverviewStyles } from '../styles';
 import Friends from './Friends';
+import { useTripContext } from '../contexts';
 
 const TRIP: ITrip = {
   start: '2022-05-30T00:00:00.000Z',
@@ -27,6 +28,9 @@ interface IProps {
 function TripOverview({ borderBottomColor }: IProps) {
   const tripStart = convertDateToDay(new Date(TRIP.start));
   const tripEnd = convertDateToDay(new Date(TRIP.end));
+  const { tripDetails } = useTripContext();
+  const friends = tripDetails.Users?.map(user => user.pictureUrl);
+
   return (
     <View
       style={[
@@ -44,7 +48,7 @@ function TripOverview({ borderBottomColor }: IProps) {
         </Text>
       </View>
       <View>
-        <Friends friends={FRIENDS_IMAGES} size={iconStyles.biggest} />
+        <Friends friends={friends} size={iconStyles.biggest} />
       </View>
     </View>
   );

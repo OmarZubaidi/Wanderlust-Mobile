@@ -47,10 +47,12 @@ export const TripProvider = ({ children }: IProps) => {
   }, [userDetails]);
 
   function fetchTrip() {
-    // TODO update to use upcoming or current trip
-    // End date >= today
-    // Start date before today
-    // Sort by start date
+    /* const nextTrip = userDetails.Trips.filter(
+      trip => Date.parse(trip.start) > Date.now()
+    ).sort(
+      (tripA, tripB) => Date.parse(tripA.start) - Date.parse(tripB.start)
+    )[0];
+    const tripId = nextTrip.id */
     axios
       .get(`${ENV.apiUrl}/trips/2`)
       .then(response => setTripDetails(response.data))
