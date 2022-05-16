@@ -11,6 +11,8 @@ import * as WebBrowser from 'expo-web-browser';
 import { imageStyles, styles, loginStyles, touchableStyles } from '../styles';
 import { useAuthContext, useUserContext } from '../contexts';
 import axios from 'axios';
+import ENV from '../config/env';
+import { mobileLogin } from '../helpers';
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -27,15 +29,12 @@ function Login() {
   }, [response]);
 
   function emailLogin() {
-    axios
-      .post('https://api-wanderlust-dogs.herokuapp.com/users/login/mobile', {
-        email,
-        mobilePassword: password,
-      })
+    if (!email || !password) return;
+    mobileLogin(email, password)
       .then(response => {
         const id = response.data.id;
         axios
-          .get(`https://api-wanderlust-dogs.herokuapp.com/users/${id}`)
+          .get(`${ENV.apiUrl}/users/${id}`)
           .then(response => {
             const { email, username, Trips, id } = response.data;
             setUserDetails({
@@ -46,9 +45,9 @@ function Login() {
               accessToken: null,
             });
           })
-          .catch(error => Alert.alert('Error', 'Failed fetching user data'));
+          .catch(error => Alert.alert('Error', 'Failed fetching user data.'));
       })
-      .catch(error => Alert.alert('Login Error', 'Login failed, try again'));
+      .catch(error => Alert.alert('Login Failed', 'Please try again.'));
   }
 
   return (

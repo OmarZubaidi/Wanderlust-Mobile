@@ -1,8 +1,6 @@
 import IEvent from './IEvent';
-import { IFlight, Itinerary } from './IFlight';
+import IFlight from './IFlight';
 import IHotel from './IHotel';
 import ITrip from './ITrip';
 
-
-export { IEvent, IFlight, IHotel, ITrip, Itinerary };
-
+export { IEvent, IFlight, IHotel, ITrip };

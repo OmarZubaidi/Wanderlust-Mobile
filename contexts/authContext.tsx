@@ -66,13 +66,13 @@ function AuthProvider({ children }: IProps) {
         try {
           const user = await fetchUserDetails(accessToken);
           const result = await axios.get(
-            `https://api-wanderlust-dogs.herokuapp.com/users/email/${user.email}`
+            `${ENV.apiUrl}/users/email/${user.email}`
           );
           setUserDetails(user);
         } catch (error: any) {
           Alert.alert(
             'Login Error',
-            'Please register in the browser or login with a valid user. If you already have an account, please try again.'
+            'Please register in the browser or login with a valid user.'
           );
           logout(response.authentication.accessToken);
         }

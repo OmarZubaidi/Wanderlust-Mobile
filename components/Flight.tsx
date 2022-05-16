@@ -19,7 +19,7 @@ const FLIGHTS: IFlight[] = [
   {
     departureCity: 'London',
     arrivalCity: 'Barcelona',
-    lengthOfFlight: '2:30 h',
+    lengthOfFlight: 'PT1H45M',
     price: 230,
     flightApiId: 1234,
     itineraries: [
@@ -36,7 +36,7 @@ const FLIGHTS: IFlight[] = [
   {
     departureCity: 'Barcelona',
     arrivalCity: 'London',
-    lengthOfFlight: '2:30 h',
+    lengthOfFlight: 'PT1H45M',
     price: 230,
     flightApiId: 1235,
     itineraries: [
@@ -66,8 +66,8 @@ function flightRenderer(flight: IFlight) {
   const departureDay = convertDateToDay(departureDate).split(' ').join('\n');
   const departureTime = convertDateToTime(departureDate);
   const arrivalTime = convertDateToTime(new Date(arrival));
-  const flightLength = lengthOfFlight.slice(2).split('H').join('H ');
-  const users = flight.Users?.map(user => user.pictureUrl);
+  const flightLength = lengthOfFlight.slice(2, -1).split('H').join('h ') + 'm';
+  //const users = flight.Users?.map(user => user.pictureUrl);
 
   return (
     <View style={[flightAndHotelStyles.container]}>
@@ -96,7 +96,7 @@ function flightRenderer(flight: IFlight) {
         <Text style={[flightAndHotelStyles.innerText]}>{arrivalTime}</Text>
         <Text style={[flightAndHotelStyles.innerText]}>{arrAirport}</Text>
       </View>
-      <Friends friends={users!} size={iconStyles.bigger} />
+      <Friends friends={FRIENDS_IMAGES} size={iconStyles.bigger} />
     </View>
   );
 }
