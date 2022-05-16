@@ -4,10 +4,10 @@ export default {
   headerStyle: {
     backgroundColor: colors.white,
     borderBottomWidth: 0.5,
-    borderBottomColor: colors.grey,
+    borderBottomColor: colors.navy,
   },
   headerTitleStyle: {
-    color: colors.grey,
+    color: colors.navy,
     fontSize: 24,
   },
   tabBarStyle: {
@@ -16,8 +16,8 @@ export default {
     borderTopRightRadius: 15,
   },
   headerTitle: 'Wanderlust',
-  tabBarActiveTintColor: colors.sidebarBlue,
-  tabBarInactiveTintColor: colors.blackish,
+  tabBarActiveTintColor: colors.blue,
+  tabBarInactiveTintColor: colors.black,
   tabBarItemStyle: {
     marginTop: 10,
     paddingBottom: 10,

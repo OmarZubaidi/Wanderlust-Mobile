@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { View } from 'react-native';
 import { Agenda } from 'react-native-calendars';
 import * as ExpoCalendar from 'expo-calendar';
-import { calendarStyles, colorStyles, styles } from '../styles';
+import { calendarStyles, colorStyles } from '../styles';
 import TripOverview from './TripOverview';
 import { calendarHelpers, formatEvents } from '../helpers';
 import { IEvent } from '../interfaces';
@@ -44,15 +44,15 @@ const EVENTS: IEvent[] = [
   },
   {
     title: 'Wow second event',
-    start: '2022-05-31T11:00:00.000Z',
-    end: '2022-05-31T14:00:00.000Z',
+    start: '2022-05-30T11:00:00.000Z',
+    end: '2022-05-30T14:00:00.000Z',
     allDay: false,
     description: 'I dunno food or something',
     location: 'Barcelona',
-    latitude: 456,
-    longitude: 123,
-    price: 0,
-    eventApiId: 12324,
+    latitude: 51.4972,
+    longitude: -0.1376,
+    price: 10,
+    eventApiId: 12332,
     bookingLink: 'LINK',
     type: 'Restaurant',
     pictures: 'no',

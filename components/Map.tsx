@@ -52,7 +52,7 @@ const EVENTS = [
 ];
 
 function markerRenderer(event: IEvent) {
-  const { eventApiId, latitude, longitude, title, description } = event;
+  const { eventApiId, latitude, longitude, title, description, type } = event;
   return (
     <Marker
       key={eventApiId}
@@ -62,10 +62,14 @@ function markerRenderer(event: IEvent) {
       description={description}
       style={{ width: 10 }}
       tracksViewChanges={true}
-      onPress={item => {
+      onPress={(item) => {
         console.log(item.nativeEvent.coordinate);
       }}
-      icon={require('../assets/pinSmall.png')}
+      icon={
+        type === 'Restaurant'
+          ? require('../assets/markerRestaurant.png')
+          : require('../assets/markerPoI.png')
+      }
     />
   );
 }
@@ -97,8 +101,7 @@ function Map({ route }: IProps) {
     <>
       <TripOverview borderBottomColor={colorStyles.white} />
       <MapView
-        style={[mapStyles.styleObject.map]}
-        customMapStyle={mapStyles.styling}
+        style={[mapStyles.map]}
         initialRegion={LOCATION}
         userInterfaceStyle='light'
         onMapReady={getUserLocation}
@@ -108,13 +111,14 @@ function Map({ route }: IProps) {
         tintColor={colorStyles.red}
       >
         {EVENTS.map(markerRenderer)}
+        {/* TODO Add hotel location markerRenderer */}
         {route.params && (
           <MapViewDirections
             origin={userLocation}
             destination={route.params}
             apikey={ENV.googleMapsApiKey}
             strokeWidth={5}
-            strokeColor={colorStyles.beige}
+            strokeColor={colorStyles.red}
           />
         )}
       </MapView>

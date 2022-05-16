@@ -11,33 +11,51 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
   },
+  horizontal: {
+    flexDirection: 'row',
+  },
+  maxWidth: {
+    width: 100,
+  },
+  maxWidthSmaller: {
+    width: 30,
+  },
+  checkout: {
+    paddingLeft: 10,
+  },
   centerContent: {
     justifyContent: 'center',
     alignItems: 'center',
     textAlign: 'center',
   },
-  dividerStart: {
-    borderLeftWidth: 0.5,
-    borderLeftColor: colors.greyShadow,
-    paddingLeft: 10,
-  },
-  dividerEnd: {
-    borderRightWidth: 0.5,
-    borderRightColor: colors.greyShadow,
-    paddingRight: 10,
-  },
-  dividerMiddle: {
-    borderBottomWidth: 0.5,
-    borderBottomColor: colors.greyShadow,
-    paddingHorizontal: 5,
-  },
   innerText: {
     fontWeight: '200',
     fontSize: 12,
     paddingVertical: 5,
+    textAlign: 'center',
   },
   smallerText: {
     fontWeight: '200',
     fontSize: 8,
+  },
+  dividerStart: {
+    borderLeftWidth: 1,
+    borderLeftColor: colors.grey,
+    paddingLeft: 10,
+  },
+  dividerEnd: {
+    borderRightWidth: 1,
+    borderRightColor: colors.grey,
+    paddingRight: 10,
+  },
+  dividerMiddleFlight: {
+    borderBottomWidth: 1,
+    borderBottomColor: colors.grey,
+    paddingHorizontal: 5,
+  },
+  dividerMiddleHotel: {
+    borderBottomWidth: 1,
+    borderBottomColor: colors.grey,
+    paddingHorizontal: 30,
   },
 });

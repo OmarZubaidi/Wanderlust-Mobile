@@ -1,3 +1,5 @@
+import { IUser, IUsersOnFlights } from '.';
+
 export default interface IFlight {
   id?: number;
   departureCity: string;
@@ -5,15 +7,8 @@ export default interface IFlight {
   lengthOfFlight: string;
   price: number;
   flightApiId: number;
-  UsersOnFlights?: [];
-  Users?: [];
-  createdAt?: Date;
-  itineraries: {
-    depAirport: string;
-    arrAirport: string;
-    depTerminal: string;
-    arrTerminal: string;
-    departure: string;
-    arrival: string;
-  }[];
+  UsersOnFlights?: IUsersOnFlights[];
+  Users?: IUser[];
+  createdAt?: string; // TODO Change to Date and refactor helpers
+  itineraries: string;
 }

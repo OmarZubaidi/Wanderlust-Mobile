@@ -60,37 +60,42 @@ function hotelRenderer(hotel: IHotel) {
 
   return (
     <View style={[flightAndHotelStyles.container]}>
-      <View style={[flightAndHotelStyles.dividerEnd]}>
-        <Text
-          style={[
-            flightAndHotelStyles.centerContent,
-            flightAndHotelStyles.smallerText,
-          ]}
-        >
-          Check-in
-        </Text>
-        <Text style={[flightAndHotelStyles.centerContent]}>{arrivalDay}</Text>
+      <View style={[flightAndHotelStyles.horizontal]}>
+        <View style={[flightAndHotelStyles.dividerEnd]}>
+          <Text
+            style={[
+              flightAndHotelStyles.centerContent,
+              flightAndHotelStyles.smallerText,
+            ]}
+          >
+            Check-in
+          </Text>
+          <Text style={[flightAndHotelStyles.centerContent]}>{arrivalDay}</Text>
+        </View>
+        <View style={[flightAndHotelStyles.checkout]}>
+          <Text
+            style={[
+              flightAndHotelStyles.centerContent,
+              flightAndHotelStyles.smallerText,
+            ]}
+          >
+            Check-out
+          </Text>
+          <Text style={[flightAndHotelStyles.centerContent]}>
+            {departureDay}
+          </Text>
+        </View>
       </View>
-      <View>
-        <Text
-          style={[
-            flightAndHotelStyles.centerContent,
-            flightAndHotelStyles.smallerText,
-          ]}
-        >
-          Check-out
-        </Text>
-        <Text style={[flightAndHotelStyles.centerContent]}>{departureDay}</Text>
-      </View>
-      <View style={[flightAndHotelStyles.dividerMiddle]} />
+      <View style={[flightAndHotelStyles.dividerMiddleHotel]} />
       <View
         style={[
           flightAndHotelStyles.centerContent,
           flightAndHotelStyles.dividerEnd,
+          flightAndHotelStyles.maxWidth,
         ]}
       >
         <Text style={[flightAndHotelStyles.innerText]}>{nights} nights</Text>
-        <HotelIcon color={colorStyles.darkestBlue} size={iconStyles.smaller} />
+        <HotelIcon color={colorStyles.blue} size={iconStyles.smaller} />
         <Text style={[flightAndHotelStyles.innerText]}>{name}</Text>
       </View>
       <Friends friends={FRIENDS_IMAGES} size={iconStyles.bigger} />

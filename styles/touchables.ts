@@ -1,1 +1,1 @@
-export const opacity = 0.5;
+export default 0.5;

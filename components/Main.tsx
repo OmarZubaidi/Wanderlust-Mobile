@@ -7,7 +7,7 @@ import { useUserContext } from '../contexts';
 
 export default function Main() {
   // TODO bring this back
-  //const { userDetails } = useUserContext();
+  // const { userDetails } = useUserContext();
 
   // TODO
   // ! DELETE THIS

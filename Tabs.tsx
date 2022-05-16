@@ -64,7 +64,7 @@ function Tabs() {
           onPress={() => logout(userDetails.accessToken)}
           style={logoutStyles.logout}
         >
-          <LogoutIcon color={colorStyles.grey} />
+          <LogoutIcon color={colorStyles.navy} />
         </TouchableOpacity>
       ),
     };

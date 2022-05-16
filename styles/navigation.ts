@@ -3,11 +3,11 @@ import colors from './colors';
 export default {
   dark: false,
   colors: {
-    primary: colors.lightSkyBlue,
+    primary: colors.blue,
     background: colors.white,
-    card: colors.lightSkyBlue,
-    text: colors.blackish,
+    card: colors.blue,
+    text: colors.black,
     border: colors.white,
-    notification: colors.lightSkyBlue,
+    notification: colors.blue,
   },
 };
