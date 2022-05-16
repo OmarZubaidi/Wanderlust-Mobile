@@ -4,7 +4,6 @@ import convertDateToTime from './convertDateToTime';
 import formatEvents from './formatEvents';
 import requestPermissionAndReturn from './requestPermissionAndReturn';
 import mobileLogin from './mobileLogin';
-
 export {
   calendarHelpers,
   convertDateToDay,

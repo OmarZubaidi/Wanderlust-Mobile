@@ -37,8 +37,10 @@ function AuthProvider({ children }: IProps) {
   }
 
   async function logout(accessToken: string) {
+    console.log(accessToken);
     if (!accessToken) {
       setUserDetails({ email: null, accessToken: null });
+      if (response) response.authentication = null;
       return;
     }
     const headers = {
@@ -49,7 +51,8 @@ function AuthProvider({ children }: IProps) {
         `https://oauth2.googleapis.com/revoke?token=${accessToken}`,
         { headers }
       );
-      response.authentication = null; //find better way to remove response
+      response.authentication = null;
+      console.log(response); //find better way to remove response
       setUserDetails({ email: null, accessToken: null });
     } catch (error: any) {
       Alert.alert(
@@ -60,15 +63,18 @@ function AuthProvider({ children }: IProps) {
   }
 
   async function googleLogin() {
+    console.log('login()');
     if (response && response.authentication) {
       if (response.type === 'success') {
         const accessToken = response.authentication.accessToken;
         try {
-          const user = await fetchUserDetails(accessToken);
+          const googleUser = await fetchUserDetails(accessToken);
           const result = await axios.get(
-            `${ENV.apiUrl}/users/email/${user.email}`
+            `${ENV.apiUrl}/users/email/${googleUser.email}`
           );
-          setUserDetails(user);
+          const user = await axios.get(`${ENV.apiUrl}/users/${result.data.id}`);
+          console.log(user.data);
+          setUserDetails(user.data);
         } catch (error: any) {
           Alert.alert(
             'Login Error',

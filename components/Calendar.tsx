@@ -132,10 +132,11 @@ function Calendar({ navigation }: IProps) {
         <Agenda
           items={events}
           // Initially selected day
-          selected={TRIP.start}
-          minDate={TRIP.start}
-          maxDate={TRIP.end}
+          selected={tripDetails.start}
+          minDate={tripDetails.start}
+          maxDate={tripDetails.end}
           pastScrollRange={0}
+          dayLoading={false}
           futureScrollRange={1}
           renderItem={item => calendarHelpers.renderItem(item, navigation)}
           rowHasChanged={(r1, r2) => {

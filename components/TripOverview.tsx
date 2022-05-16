@@ -26,9 +26,9 @@ interface IProps {
 }
 
 function TripOverview({ borderBottomColor }: IProps) {
-  const tripStart = convertDateToDay(new Date(TRIP.start));
-  const tripEnd = convertDateToDay(new Date(TRIP.end));
   const { tripDetails } = useTripContext();
+  const tripStart = convertDateToDay(new Date(tripDetails.start));
+  const tripEnd = convertDateToDay(new Date(tripDetails.end));
   const friends = tripDetails.Users?.map(user => user.pictureUrl);
 
   return (
@@ -41,7 +41,7 @@ function TripOverview({ borderBottomColor }: IProps) {
     >
       <View style={[tripOverviewStyles.vertical]}>
         <Text style={[tripOverviewStyles.city, tripOverviewStyles.textColor]}>
-          {TRIP.destination}
+          {tripDetails.destination}
         </Text>
         <Text style={[tripOverviewStyles.textColor]}>
           {tripStart} - {tripEnd}
