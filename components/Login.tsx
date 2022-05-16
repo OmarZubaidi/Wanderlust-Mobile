@@ -1,25 +1,54 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   ImageBackground,
   Text,
   TouchableOpacity,
   View,
   TextInput,
+  Alert,
 } from 'react-native';
 import * as WebBrowser from 'expo-web-browser';
 import { imageStyles, styles, loginStyles, touchableStyles } from '../styles';
-import { useAuthContext } from '../contexts';
+import { useAuthContext, useUserContext } from '../contexts';
+import axios from 'axios';
+import ENV from '../config/env';
+import { mobileLogin } from '../helpers';
 
 WebBrowser.maybeCompleteAuthSession();
 
 function Login() {
-  const { login, response, promptAsync } = useAuthContext();
+  const { setUserDetails } = useUserContext();
+  const { googleLogin, response, promptAsync } = useAuthContext();
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
 
   useEffect(() => {
     if (response) {
-      login();
+      googleLogin();
     }
   }, [response]);
+
+  function emailLogin() {
+    if (!email || !password) return;
+    mobileLogin(email, password)
+      .then(response => {
+        const id = response.data.id;
+        axios
+          .get(`${ENV.apiUrl}/users/${id}`)
+          .then(response => {
+            const { email, username, Trips, id } = response.data;
+            setUserDetails({
+              email,
+              id,
+              username,
+              Trips,
+              accessToken: null,
+            });
+          })
+          .catch(error => Alert.alert('Error', 'Failed fetching user data.'));
+      })
+      .catch(error => Alert.alert('Login Failed', 'Please try again.'));
+  }
 
   return (
     <>
@@ -31,22 +60,22 @@ function Login() {
         <View style={[styles.container, loginStyles.container]}>
           <Text style={[loginStyles.heading]}>Login</Text>
           <TextInput
-            value={''}
-            onChangeText={() => {}}
-            placeholder={'Username'}
+            value={email}
+            onChangeText={setEmail}
+            placeholder={'E-mail'}
             style={[loginStyles.input]}
           />
           <TextInput
-            value={''}
-            onChangeText={() => {}}
-            placeholder={'Password'}
+            value={password}
+            onChangeText={setPassword}
+            placeholder={'PIN'}
             secureTextEntry={true}
             style={loginStyles.input}
           />
           <TouchableOpacity
             activeOpacity={touchableStyles}
             style={[loginStyles.button]}
-            onPress={() => {}}
+            onPress={emailLogin}
           >
             <Text style={[loginStyles.buttonText]}>Login</Text>
           </TouchableOpacity>

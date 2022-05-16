@@ -1,7 +1,7 @@
 import React from 'react';
 import { LogBox } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
-import { AuthProvider, UserProvider } from './contexts';
+import { AuthProvider, UserProvider, TripProvider } from './contexts';
 import { Main } from './components';
 
 LogBox.ignoreAllLogs();
@@ -12,8 +12,10 @@ export default function App() {
   return (
     <UserProvider>
       <AuthProvider>
-        <StatusBar style='auto' />
-        <Main />
+        <TripProvider>
+          <StatusBar style='auto' />
+          <Main />
+        </TripProvider>
       </AuthProvider>
     </UserProvider>
   );

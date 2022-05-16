@@ -13,12 +13,13 @@ import { convertDateToDay, convertDateToTime } from '../helpers';
 import TripOverview from './TripOverview';
 import { FlightIcon } from './Icons';
 import Friends from './Friends';
+import { useTripContext, useUserContext } from '../contexts';
 
 const FLIGHTS: IFlight[] = [
   {
     departureCity: 'London',
     arrivalCity: 'Barcelona',
-    lengthOfFlight: '2:30 h',
+    lengthOfFlight: 'PT1H45M',
     price: 230,
     flightApiId: 1234,
     itineraries: [
@@ -35,7 +36,7 @@ const FLIGHTS: IFlight[] = [
   {
     departureCity: 'Barcelona',
     arrivalCity: 'London',
-    lengthOfFlight: '2:30 h',
+    lengthOfFlight: 'PT1H45M',
     price: 230,
     flightApiId: 1235,
     itineraries: [
@@ -65,7 +66,8 @@ function flightRenderer(flight: IFlight) {
   const departureDay = convertDateToDay(departureDate).split(' ').join('\n');
   const departureTime = convertDateToTime(departureDate);
   const arrivalTime = convertDateToTime(new Date(arrival));
-  const flightLength = lengthOfFlight.split(' ')[0].split(':').join('h ') + 'm';
+  const flightLength = lengthOfFlight.slice(2, -1).split('H').join('h ') + 'm';
+  //const users = flight.Users?.map(user => user.pictureUrl);
 
   return (
     <View style={[flightAndHotelStyles.container]}>
@@ -100,13 +102,16 @@ function flightRenderer(flight: IFlight) {
 }
 
 function Flight() {
+  const { tripDetails } = useTripContext();
+  const { userDetails } = useUserContext();
+
   return (
     <>
       <TripOverview borderBottomColor={colorStyles.grey} />
       <View style={[styles.container]}>
         <FlatList
           data={FLIGHTS}
-          keyExtractor={(item) => `${item.flightApiId}`}
+          keyExtractor={item => `${item.flightApiId}`}
           renderItem={({ item }) => flightRenderer(item)}
         />
       </View>

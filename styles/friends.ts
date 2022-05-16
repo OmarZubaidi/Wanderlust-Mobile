@@ -8,6 +8,7 @@ export default StyleSheet.create({
   },
   photo: {
     position: 'relative',
+    borderRadius: 50,
   },
   more: {
     alignSelf: 'center',

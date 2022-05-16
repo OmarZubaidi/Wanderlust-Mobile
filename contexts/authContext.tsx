@@ -37,6 +37,10 @@ function AuthProvider({ children }: IProps) {
   }
 
   async function logout(accessToken: string) {
+    if (!accessToken) {
+      setUserDetails({ email: null, accessToken: null });
+      return;
+    }
     const headers = {
       'Content-type': 'application/x-www-form-urlencoded',
     };
@@ -48,7 +52,6 @@ function AuthProvider({ children }: IProps) {
       response.authentication = null; //find better way to remove response
       setUserDetails({ email: null, accessToken: null });
     } catch (error: any) {
-      console.log('logout error', error);
       Alert.alert(
         'Error',
         'There was a problem logging out. Please try again.'
@@ -56,21 +59,20 @@ function AuthProvider({ children }: IProps) {
     }
   }
 
-  async function login() {
+  async function googleLogin() {
     if (response && response.authentication) {
       if (response.type === 'success') {
         const accessToken = response.authentication.accessToken;
         try {
           const user = await fetchUserDetails(accessToken);
           const result = await axios.get(
-            `https://api-wanderlust-dogs.herokuapp.com/users/email/${user.email}`
+            `${ENV.apiUrl}/users/email/${user.email}`
           );
           setUserDetails(user);
         } catch (error: any) {
-          console.log('login error', error);
           Alert.alert(
             'Login Error',
-            'Please register in the browser or login with a valid user. If you already have an account, please try again.'
+            'Please register in the browser or login with a valid user.'
           );
           logout(response.authentication.accessToken);
         }
@@ -83,7 +85,7 @@ function AuthProvider({ children }: IProps) {
     request,
     response,
     promptAsync,
-    login,
+    googleLogin,
     logout,
   };
 

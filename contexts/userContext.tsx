@@ -2,6 +2,9 @@ import React, { useContext, useState } from 'react';
 
 const UserContext = React.createContext<any>({
   email: null,
+  id: null,
+  username: null,
+  Trips: [],
   accessToken: null,
 });
 
@@ -16,6 +19,9 @@ interface IProps {
 export const UserProvider = ({ children }: IProps) => {
   const [userDetails, setUserDetails] = useState<any>({
     email: null,
+    id: null,
+    username: null,
+    Trips: [],
     accessToken: null,
   });
 
