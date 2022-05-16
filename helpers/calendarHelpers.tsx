@@ -15,7 +15,7 @@ export async function createCalendar(tripName: string) {
       : { isLocalAccount: true, name: 'Wanderlust', type: '' };
   await Calendar.createCalendarAsync({
     title: tripName,
-    color: colorStyles.lightSkyBlue,
+    color: colorStyles.blue,
     entityType: Calendar.EntityTypes.EVENT,
     source: defaultCalendarSource,
     name: 'internalCalendarName',

@@ -21,9 +21,9 @@ export default StyleSheet.create({
     fontSize: 24,
   },
   textColor: {
-    color: colors.grey,
+    color: colors.navy,
   },
   bottomBorder: {
-    borderBottomWidth: 0.5,
+    borderBottomWidth: 1,
   },
 });

@@ -7,7 +7,7 @@ import iconStyles from './icons';
 import imageStyles from './images';
 import loginStyles from './login';
 import logoutStyles from './logout';
-import * as mapStyles from './maps';
+import mapStyles from './maps';
 import navigationStyles from './navigation';
 import tabStyles from './tabs';
 import touchableStyles from './touchables';

@@ -1,7 +1,8 @@
 export default interface IEvent {
+  id?: number;
   title: string;
-  start: string;
-  end: string;
+  start: string; // TODO Change to Date and refactor helpers
+  end: string; // TODO  Change to Date and refactor helpers
   allDay: boolean;
   description: string;
   location: string;
@@ -13,5 +14,5 @@ export default interface IEvent {
   type: string;
   pictures: string;
   rating: number;
-  tripId: number;
+  tripId?: number;
 }

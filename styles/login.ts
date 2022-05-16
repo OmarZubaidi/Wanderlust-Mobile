@@ -9,7 +9,7 @@ export default StyleSheet.create({
   heading: {
     alignSelf: 'flex-start',
     marginLeft: '23.5%',
-    color: colors.grey,
+    color: colors.navy,
     fontSize: 24,
     fontWeight: 'bold',
   },
@@ -21,7 +21,7 @@ export default StyleSheet.create({
     marginVertical: 10,
     backgroundColor: colors.white,
     borderWidth: 1,
-    borderColor: colors.grey,
+    borderColor: colors.navy,
     borderRadius: 10,
   },
   button: {
@@ -32,9 +32,9 @@ export default StyleSheet.create({
     paddingVertical: 12,
     paddingHorizontal: 32,
     marginVertical: 10,
-    backgroundColor: colors.greyishBlue,
+    backgroundColor: colors.blue,
     borderWidth: 1,
-    borderColor: colors.grey,
+    borderColor: colors.navy,
     borderRadius: 5,
     elevation: 3,
   },
@@ -43,8 +43,7 @@ export default StyleSheet.create({
   },
   bottomView: {
     alignContent: 'center',
-    padding: 21,
-    backgroundColor: colors.greyShadow.slice(0, -2) + '30',
+    padding: 60,
   },
   bottomText: {
     textAlign: 'center',

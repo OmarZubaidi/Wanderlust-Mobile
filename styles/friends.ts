@@ -13,6 +13,6 @@ export default StyleSheet.create({
   more: {
     alignSelf: 'center',
     paddingHorizontal: 3,
-    color: colors.darkestBlue,
+    color: colors.navy,
   },
 });
