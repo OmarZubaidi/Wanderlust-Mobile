@@ -9,8 +9,8 @@ import ENV from '../config/env';
 import { useTripContext } from '../contexts';
 
 const LOCATION = {
-  latitude: 51.5072,
-  longitude: -0.1276,
+  latitude: 41.38894358473509,
+  longitude: 2.167669520768813,
   latitudeDelta: 0.0922,
   longitudeDelta: 0.041,
 };
