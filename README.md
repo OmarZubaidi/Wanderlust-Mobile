@@ -111,6 +111,7 @@ npm i
 
 ```
 const ENV = {
+  apiUrl: 'YOUR_BACK_END_URL',
   googleClientId: 'YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com',
   googleMapsApiKey: 'YOUR_GOOGLE_MAPS_API_KEY',
 };
