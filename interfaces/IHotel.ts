@@ -6,12 +6,12 @@ export default interface IHotel {
   location: string;
   latitude: number;
   longitude: number;
-  arrival: string; // TODO Change to Date and refactor helpers
-  departure: string; // TODO Change to Date and refactor helpers
+  arrival: string;
+  departure: string;
   nights: number;
   priceTotal: number;
   hotelApiId: string;
-  createdAt?: string; // TODO Change to Date and refactor helpers
+  createdAt?: string;
   UsersOnHotels?: IUsersOnHotels[];
   Users?: IUser[];
   description: string;

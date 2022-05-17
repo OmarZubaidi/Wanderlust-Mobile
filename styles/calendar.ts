@@ -38,7 +38,6 @@ export const agenda = {
   todayTextColor: colors.white,
   todayBackgroundColor: colors.beige,
   disabledDotColor: colors.blue,
-  // TODO add fonts
   textDayFontFamily: 'Inter_400Regular',
   textMonthFontFamily: 'Inter_400Regular',
   textDayHeaderFontFamily: 'Inter_700Bold',

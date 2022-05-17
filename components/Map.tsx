@@ -67,9 +67,11 @@ function markerRenderer(event: IEvent) {
         console.log(item.nativeEvent.coordinate);
       }}
       icon={
-        type === 'Restaurant'
+        type === 'RESTAURANT'
           ? require('../assets/markerRestaurant.png')
-          : require('../assets/markerPoI.png')
+          : type === 'HOTEL'
+          ? require('../assets/markerHotel.png')
+          : require('../assets/markerEvent.png')
       }
     />
   );

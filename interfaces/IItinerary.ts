@@ -3,6 +3,6 @@ export default interface IItinerary {
   arrAirport: string;
   depTerminal?: string;
   arrTerminal?: string;
-  departure: string; // TODO Change to Date and refactor helpers
-  arrival: string; // TODO Change to Date and refactor helpers
+  departure: string;
+  arrival: string;
 }

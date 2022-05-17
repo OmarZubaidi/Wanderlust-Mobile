@@ -39,7 +39,6 @@ export const TripProvider = ({ children }: IProps) => {
     Hotels: [],
   });
   const { userDetails } = useUserContext();
-  //fetch first trip, TODO: fetch trip details based on selected one
   useEffect(() => {
     if (userDetails.Trips && userDetails.Trips.length) {
       fetchTrip();
@@ -48,15 +47,15 @@ export const TripProvider = ({ children }: IProps) => {
 
   function fetchTrip() {
     const nextTrip = userDetails.Trips.filter(
-      trip => Date.parse(trip.start) > Date.now()
+      (trip) => Date.parse(trip.start) > Date.now()
     ).sort(
       (tripA, tripB) => Date.parse(tripA.start) - Date.parse(tripB.start)
     )[0];
     const tripId = nextTrip?.id;
     axios
       .get(`${ENV.apiUrl}/trips/${tripId}`)
-      .then(response => setTripDetails(response.data))
-      .catch(error => Alert.alert(error));
+      .then((response) => setTripDetails(response.data))
+      .catch((error) => Alert.alert(error));
   }
 
   const value = { tripDetails, setTripDetails };

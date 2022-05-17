@@ -9,6 +9,6 @@ export default interface IFlight {
   flightApiId: number;
   UsersOnFlights?: IUsersOnFlights[];
   Users?: IUser[];
-  createdAt?: string; // TODO Change to Date and refactor helpers
+  createdAt?: string;
   itineraries: string;
 }
