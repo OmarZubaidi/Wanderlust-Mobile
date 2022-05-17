@@ -37,9 +37,13 @@ function AuthProvider({ children }: IProps) {
   }
 
   async function logout(accessToken: string) {
-    console.log(accessToken);
     if (!accessToken) {
-      setUserDetails({ email: null, accessToken: null });
+      setUserDetails({
+        email: null,
+        accessToken: null,
+        Trips: [],
+        pictureUrl: null,
+      });
       if (response) response.authentication = null;
       return;
     }
@@ -53,7 +57,12 @@ function AuthProvider({ children }: IProps) {
       );
       response.authentication = null;
       console.log(response); //find better way to remove response
-      setUserDetails({ email: null, accessToken: null });
+      setUserDetails({
+        email: null,
+        accessToken: null,
+        Trips: [],
+        pictureUrl: null,
+      });
     } catch (error: any) {
       Alert.alert(
         'Error',
@@ -63,7 +72,6 @@ function AuthProvider({ children }: IProps) {
   }
 
   async function googleLogin() {
-    console.log('login()');
     if (response && response.authentication) {
       if (response.type === 'success') {
         const accessToken = response.authentication.accessToken;
@@ -73,7 +81,6 @@ function AuthProvider({ children }: IProps) {
             `${ENV.apiUrl}/users/email/${googleUser.email}`
           );
           const user = await axios.get(`${ENV.apiUrl}/users/${result.data.id}`);
-          console.log(user.data);
           setUserDetails(user.data);
         } catch (error: any) {
           Alert.alert(
