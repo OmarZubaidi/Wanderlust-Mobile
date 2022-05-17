@@ -33,6 +33,7 @@ function markerRenderer(event: IEvent) {
       description={trimmedDescription}
       style={{ width: 10 }}
       tracksViewChanges={true}
+      // TODO Add hotel, restaurant location markerRenderer
       icon={
         type === 'RESTAURANT'
           ? require('../assets/markerRestaurant.png')
@@ -89,8 +90,7 @@ function Map({ route }: IProps) {
         followsUserLocation={true}
         tintColor={colorStyles.red}
       >
-        {tripDetails.Events.map(markerRenderer)}
-        {/* TODO Add hotel location markerRenderer */}
+        {tripDetails.Events ? tripDetails.Events.map(markerRenderer) : <></>}
         {route.params && (
           <MapViewDirections
             origin={userLocation}
