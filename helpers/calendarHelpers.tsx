@@ -1,7 +1,12 @@
 import { Platform, Text, TouchableOpacity, View } from 'react-native';
 import { AgendaEntry } from 'react-native-calendars';
 import * as Calendar from 'expo-calendar';
-import { calendarStyles, colorStyles, touchableStyles } from '../styles';
+import {
+  calendarStyles,
+  colorStyles,
+  styles,
+  touchableStyles,
+} from '../styles';
 
 async function getDefaultCalendarSource() {
   const defaultCalendar = await Calendar.getDefaultCalendarAsync();
@@ -43,27 +48,22 @@ export function renderItem(item: AgendaEntry, navigation: any) {
         });
       }}
     >
-      <Text
-        style={[
-          calendarStyles.styleObject.itemText,
-          calendarStyles.styleObject.itemTitle,
-        ]}
-      >
+      <Text style={[calendarStyles.styleObject.itemText, styles.fontBold]}>
         {item.name}
       </Text>
       <View style={[calendarStyles.styleObject.horizontal]}>
-        <Text style={[calendarStyles.styleObject.itemText]}>
+        <Text style={[calendarStyles.styleObject.itemText, styles.font]}>
           {/* @ts-ignore */}
           {item.start} to {item.end}
         </Text>
         {/* @ts-ignore */}
         {item.price > 0 && (
-          <Text style={[calendarStyles.styleObject.itemText]}>
+          <Text style={[calendarStyles.styleObject.itemText, styles.font]}>
             €{item.price}
           </Text>
         )}
       </View>
-      <Text style={[calendarStyles.styleObject.itemText]}>
+      <Text style={[calendarStyles.styleObject.itemText, styles.font]}>
         {/* @ts-ignore */}
         {item.description}
       </Text>

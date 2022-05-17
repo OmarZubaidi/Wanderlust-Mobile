@@ -19,6 +19,7 @@ import {
 } from './components/Icons';
 import {
   colorStyles,
+  iconStyles,
   logoutStyles,
   tabStyles,
   touchableStyles,
@@ -42,13 +43,13 @@ function Tabs() {
       tabBarIcon: ({ color }) => {
         switch (route.name) {
           case 'Calendar':
-            return <CalendarIcon color={color} />;
+            return <CalendarIcon color={color} size={iconStyles.bigger} />;
           case 'Map':
-            return <MapIcon color={color} />;
+            return <MapIcon color={color} size={iconStyles.bigger} />;
           case 'Flight':
-            return <FlightIcon color={color} />;
+            return <FlightIcon color={color} size={iconStyles.bigger} />;
           case 'Hotel':
-            return <HotelIcon color={color} />;
+            return <HotelIcon color={color} size={iconStyles.bigger} />;
         }
       },
       // TODO add logo

@@ -31,11 +31,11 @@ function Login() {
   function emailLogin() {
     if (!email || !password) return;
     mobileLogin(email, password)
-      .then(response => {
+      .then((response) => {
         const id = response.data.id;
         axios
           .get(`${ENV.apiUrl}/users/${id}`)
-          .then(response => {
+          .then((response) => {
             const { email, username, Trips, id } = response.data;
             setUserDetails({
               email,
@@ -45,9 +45,9 @@ function Login() {
               accessToken: null,
             });
           })
-          .catch(error => Alert.alert('Error', 'Failed fetching user data.'));
+          .catch((error) => Alert.alert('Error', 'Failed fetching user data.'));
       })
-      .catch(error => Alert.alert('Login Failed', 'Please try again.'));
+      .catch((error) => Alert.alert('Login Failed', 'Please try again.'));
   }
 
   return (
@@ -58,26 +58,26 @@ function Login() {
         style={[imageStyles.background]}
       >
         <View style={[styles.container, loginStyles.container]}>
-          <Text style={[loginStyles.heading]}>Login</Text>
+          <Text style={[loginStyles.heading, styles.fontBold]}>Login</Text>
           <TextInput
             value={email}
             onChangeText={setEmail}
             placeholder={'E-mail'}
-            style={[loginStyles.input]}
+            style={[loginStyles.input, styles.fontLight]}
           />
           <TextInput
             value={password}
             onChangeText={setPassword}
             placeholder={'PIN'}
             secureTextEntry={true}
-            style={loginStyles.input}
+            style={[loginStyles.input, styles.fontLight]}
           />
           <TouchableOpacity
             activeOpacity={touchableStyles}
             style={[loginStyles.button]}
             onPress={emailLogin}
           >
-            <Text style={[loginStyles.buttonText]}>Login</Text>
+            <Text style={[loginStyles.buttonText, styles.font]}>Login</Text>
           </TouchableOpacity>
         </View>
         <TouchableOpacity
@@ -85,7 +85,7 @@ function Login() {
           style={[loginStyles.bottomView]}
           onPress={() => promptAsync()}
         >
-          <Text style={[loginStyles.bottomText]}>
+          <Text style={[loginStyles.bottomText, styles.fontBold]}>
             Or login through <Text style={[loginStyles.google]}>Google</Text>
           </Text>
         </TouchableOpacity>

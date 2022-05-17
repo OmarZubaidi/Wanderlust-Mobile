@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, View } from 'react-native';
 import { convertDateToDay } from '../helpers';
 import { ITrip } from '../interfaces';
-import { iconStyles, tripOverviewStyles } from '../styles';
+import { iconStyles, styles, tripOverviewStyles } from '../styles';
 import Friends from './Friends';
 import { useTripContext } from '../contexts';
 
@@ -40,10 +40,16 @@ function TripOverview({ borderBottomColor }: IProps) {
       ]}
     >
       <View style={[tripOverviewStyles.vertical]}>
-        <Text style={[tripOverviewStyles.city, tripOverviewStyles.textColor]}>
+        <Text
+          style={[
+            tripOverviewStyles.city,
+            tripOverviewStyles.textColor,
+            styles.fontBold,
+          ]}
+        >
           {tripDetails.destination}
         </Text>
-        <Text style={[tripOverviewStyles.textColor]}>
+        <Text style={[tripOverviewStyles.textColor, styles.font]}>
           {tripStart} - {tripEnd}
         </Text>
       </View>
