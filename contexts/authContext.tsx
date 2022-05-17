@@ -39,7 +39,7 @@ function AuthProvider({ children }: IProps) {
   async function logout(accessToken: string) {
     console.log(accessToken);
     if (!accessToken) {
-      setUserDetails({ email: null, accessToken: null });
+      setUserDetails({ email: null, accessToken: null, Trips: [] });
       if (response) response.authentication = null;
       return;
     }
