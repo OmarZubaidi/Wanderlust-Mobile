@@ -3,7 +3,7 @@ import FlightScreen from './FlightScreen';
 import HotelScreen from './HotelScreen';
 import LoginScreen from './LoginScreen';
 import MapScreen from './MapScreen';
-import ModalScreen from './ModalScreen';
+import TripSelector from './ModalScreen';
 
 export {
   CalendarScreen,
@@ -11,5 +11,5 @@ export {
   LoginScreen,
   HotelScreen,
   MapScreen,
-  ModalScreen,
+  TripSelector,
 };
