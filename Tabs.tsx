@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, TouchableOpacity } from 'react-native';
+import { Image, View, TouchableOpacity } from 'react-native';
 import {
   BottomTabNavigationOptions,
   createBottomTabNavigator,
@@ -60,13 +60,24 @@ function Tabs() {
       //   />
       // ),
       headerRight: () => (
-        <TouchableOpacity
-          activeOpacity={touchableStyles}
-          onPress={() => logout(userDetails.accessToken)}
-          style={logoutStyles.logout}
-        >
-          <LogoutIcon color={colorStyles.navy} />
-        </TouchableOpacity>
+        <View style={logoutStyles.headerRight}>
+          <Image
+            source={{ uri: userDetails.pictureUrl }}
+            style={{
+              width: 30,
+              height: 30,
+              borderRadius: 30,
+              marginRight: 10,
+            }}
+          />
+          <TouchableOpacity
+            activeOpacity={touchableStyles}
+            onPress={() => logout(userDetails.accessToken)}
+            style={logoutStyles.logout}
+          >
+            <LogoutIcon color={colorStyles.navy} />
+          </TouchableOpacity>
+        </View>
       ),
     };
   }

@@ -31,23 +31,24 @@ function Login() {
   function emailLogin() {
     if (!email || !password) return;
     mobileLogin(email, password)
-      .then((response) => {
+      .then(response => {
         const id = response.data.id;
         axios
           .get(`${ENV.apiUrl}/users/${id}`)
-          .then((response) => {
-            const { email, username, Trips, id } = response.data;
+          .then(response => {
+            const { email, username, Trips, id, pictureUrl } = response.data;
             setUserDetails({
               email,
               id,
               username,
               Trips,
               accessToken: null,
+              pictureUrl,
             });
           })
-          .catch((error) => Alert.alert('Error', 'Failed fetching user data.'));
+          .catch(error => Alert.alert('Error', 'Failed fetching user data.'));
       })
-      .catch((error) => Alert.alert('Login Failed', 'Please try again.'));
+      .catch(error => Alert.alert('Login Failed', 'Please try again.'));
   }
 
   return (
