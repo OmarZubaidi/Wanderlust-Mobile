@@ -1,69 +1,65 @@
 import axios from 'axios';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 import { Alert } from 'react-native';
 import ENV from '../config/env';
+import { ITrip } from '../interfaces';
 import { useUserContext } from './userContext';
 
-const TripContext = React.createContext<any>({
-  id: null,
+export const emptyTrip = {
+  id: undefined,
   start: '',
   end: '',
   destination: '',
-  longitude: '',
-  latitude: '',
+  longitude: 0,
+  latitude: 0,
   Events: [],
   Users: [],
   Flights: [],
   Hotels: [],
+};
+
+interface ITripContext {
+  tripDetails: ITrip;
+  setTripDetails: (userDetails: ITrip) => void;
+}
+
+const TripContext = createContext<ITripContext>({
+  tripDetails: emptyTrip,
+  setTripDetails: () => {},
 });
 
 export function useTripContext() {
   return useContext(TripContext);
 }
 
-interface IProps {
-  children: any;
-}
-
-export const TripProvider = ({ children }: IProps) => {
-  const [tripDetails, setTripDetails] = useState<any>({
-    id: null,
-    start: '',
-    end: '',
-    destination: '',
-    longitude: '',
-    latitude: '',
-    Events: [],
-    Users: [],
-    Flights: [],
-    Hotels: [],
-  });
+export const TripProvider = (props: any) => {
+  const [tripDetails, setTripDetails] = useState<ITrip>(emptyTrip);
   const { userDetails } = useUserContext();
-  //fetch first trip, TODO: fetch trip details based on selected one
   useEffect(() => {
-    if (userDetails.Trips && userDetails.Trips.length) {
+    if (userDetails?.Trips?.length) {
       fetchTrip();
     }
   }, [userDetails]);
 
   function fetchTrip() {
+    if (!userDetails.Trips) {
+      setTripDetails(emptyTrip);
+      return;
+    }
     const nextTrip = userDetails.Trips.filter(
-      trip => Date.parse(trip.start) > Date.now()
+      (trip) => Date.parse(trip.start) > Date.now()
     ).sort(
       (tripA, tripB) => Date.parse(tripA.start) - Date.parse(tripB.start)
     )[0];
     const tripId = nextTrip?.id;
     axios
       .get(`${ENV.apiUrl}/trips/${tripId}`)
-      .then(response => setTripDetails(response.data))
-      .catch(error => Alert.alert(error));
+      .then((response) => setTripDetails(response.data))
+      .catch((error) => Alert.alert(error));
   }
 
-  const value = { tripDetails, setTripDetails };
   return (
-    <TripContext.Provider value={value}>
-      <>{children}</>
-    </TripContext.Provider>
+    <TripContext.Provider value={{ tripDetails, setTripDetails }} {...props} />
   );
 };
 

@@ -52,13 +52,16 @@ function Tabs() {
             return <HotelIcon color={color} size={iconStyles.bigger} />;
         }
       },
-      // TODO add logo
-      // headerLeft: () => (
-      //   <Image
-      //     style={{ width: 40, height: 40, marginRight: -20 }}
-      //     source={require('./assets/icon.png')}
-      //   />
-      // ),
+      headerLeft: () => (
+        <Image
+          style={{
+            width: iconStyles.biggest,
+            height: iconStyles.biggest,
+            marginRight: -iconStyles.normal,
+          }}
+          source={require('./assets/icon.png')}
+        />
+      ),
       headerRight: () => (
         <View style={logoutStyles.headerRight}>
           <Image

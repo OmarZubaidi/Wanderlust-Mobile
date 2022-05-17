@@ -3,5 +3,5 @@ export default interface IUsersOnHotels {
   userId: number;
   hotelId: number;
   tripId: number;
-  createdAt: string; // TODO Change to Date and refactor helpers
+  createdAt: string;
 }

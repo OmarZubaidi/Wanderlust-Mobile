@@ -1,8 +1,8 @@
 export default interface IEvent {
   id?: number;
   title: string;
-  start: string; // TODO Change to Date and refactor helpers
-  end: string; // TODO  Change to Date and refactor helpers
+  start: string;
+  end: string;
   allDay: boolean;
   description: string;
   location: string;
