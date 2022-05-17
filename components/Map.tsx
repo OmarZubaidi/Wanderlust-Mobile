@@ -33,9 +33,6 @@ function markerRenderer(event: IEvent) {
       description={trimmedDescription}
       style={{ width: 10 }}
       tracksViewChanges={true}
-      onPress={(item) => {
-        console.log(item.nativeEvent.coordinate);
-      }}
       icon={
         type === 'RESTAURANT'
           ? require('../assets/markerRestaurant.png')

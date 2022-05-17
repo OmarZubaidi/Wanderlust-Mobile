@@ -6,11 +6,11 @@ import Tabs from '../Tabs';
 import { useUserContext } from '../contexts';
 
 export default function Main() {
-  const { userDetails } = useUserContext();
+  const { userDetails, setUserDetails } = useUserContext();
 
   return (
     <NavigationContainer theme={navigationStyles}>
-      {userDetails.email ? <Tabs /> : <LoginScreen />}
+      {userDetails?.email ? <Tabs /> : <LoginScreen />}
     </NavigationContainer>
   );
 }

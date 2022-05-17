@@ -5,7 +5,6 @@ import * as ExpoCalendar from 'expo-calendar';
 import { calendarStyles, colorStyles } from '../styles';
 import TripOverview from './TripOverview';
 import { calendarHelpers, formatEvents } from '../helpers';
-import { IEvent } from '../interfaces';
 import { useTripContext } from '../contexts';
 
 interface IProps {

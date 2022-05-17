@@ -3,19 +3,15 @@ import { Alert } from 'react-native';
 import axios from 'axios';
 import * as Google from 'expo-auth-session/providers/google';
 import ENV from '../config/env';
-import { useUserContext } from './userContext';
+import { emptyUser, useUserContext } from './userContext';
 
-const AuthContext = createContext<any>({ email: null, accessToken: null });
+const AuthContext = createContext<any>({ email: '', accessToken: '' });
 
 export function useAuthContext() {
   return useContext(AuthContext);
 }
 
-interface IProps {
-  children: any;
-}
-
-function AuthProvider({ children }: IProps) {
+function AuthProvider(props: any) {
   const { userDetails, setUserDetails } = useUserContext();
   const [request, response, promptAsync] = Google.useAuthRequest({
     expoClientId: ENV.googleClientId,
@@ -38,12 +34,7 @@ function AuthProvider({ children }: IProps) {
 
   async function logout(accessToken: string) {
     if (!accessToken) {
-      setUserDetails({
-        email: null,
-        accessToken: null,
-        Trips: [],
-        pictureUrl: null,
-      });
+      setUserDetails(emptyUser);
       if (response) response.authentication = null;
       return;
     }
@@ -56,14 +47,9 @@ function AuthProvider({ children }: IProps) {
         { headers }
       );
       response.authentication = null;
-      console.log(response); //find better way to remove response
-      setUserDetails({
-        email: null,
-        accessToken: null,
-        Trips: [],
-        pictureUrl: null,
-      });
+      setUserDetails(emptyUser);
     } catch (error: any) {
+      console.log(error);
       Alert.alert(
         'Error',
         'There was a problem logging out. Please try again.'
@@ -102,11 +88,7 @@ function AuthProvider({ children }: IProps) {
     logout,
   };
 
-  return (
-    <AuthContext.Provider value={value}>
-      <>{children}</>
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={value} {...props} />;
 }
 
 export default AuthProvider;

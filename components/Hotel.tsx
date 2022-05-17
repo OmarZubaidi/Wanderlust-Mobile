@@ -19,7 +19,7 @@ function hotelRenderer(hotel: IHotel) {
   const departureDay = convertDateToDay(new Date(departure))
     .split(' ')
     .join('\n');
-  const friends = hotel.Users?.map((user) => user.pictureUrl);
+  const friends = hotel.Users ? hotel.Users.map((user) => user.pictureUrl) : [];
   return (
     <View style={[flightAndHotelStyles.container]}>
       <View style={[flightAndHotelStyles.horizontal]}>
