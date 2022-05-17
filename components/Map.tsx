@@ -8,59 +8,29 @@ import TripOverview from './TripOverview';
 import ENV from '../config/env';
 import { useTripContext } from '../contexts';
 
-const LOCATION = {
-  latitude: 41.3949662,
-  longitude: 2.1977755,
-  latitudeDelta: 0.0922,
-  longitudeDelta: 0.041,
-};
-
-const EVENTS = [
-  {
-    title: 'Lorem ipsum dolor',
-    start: '2022-05-30T09:00:00.000Z',
-    end: '2022-05-30T10:00:00.000Z',
-    allDay: false,
-    description: 'test',
-    location: 'Barcelona',
-    latitude: 51.5172,
-    longitude: -0.1176,
-    price: 0,
-    eventApiId: 12323,
-    bookingLink: 'LINK',
-    type: 'Activity',
-    pictures: 'reeeeee',
-    rating: 3.2,
-    tripId: 2,
-  },
-  {
-    title: 'Wow second event',
-    start: '2022-05-30T11:00:00.000Z',
-    end: '2022-05-30T14:00:00.000Z',
-    allDay: false,
-    description: 'I dunno food or something',
-    location: 'Barcelona',
-    latitude: 51.4972,
-    longitude: -0.1376,
-    price: 10,
-    eventApiId: 12332,
-    bookingLink: 'LINK',
-    type: 'Restaurant',
-    pictures: 'no',
-    rating: 4.5,
-    tripId: 2,
-  },
-];
-
 function markerRenderer(event: IEvent) {
   const { eventApiId, latitude, longitude, title, description, type } = event;
+  const maxLength = 30;
+  const titleLength = title.length;
+  const descriptionLength = description.length;
+  let trimmedTitle = title.slice(0, Math.min(title.length, maxLength));
+  trimmedTitle = titleLength > maxLength ? trimmedTitle + '...' : trimmedTitle;
+  let trimmedDescription = description.slice(
+    0,
+    Math.min(description.length, maxLength)
+  );
+  trimmedDescription =
+    descriptionLength > maxLength
+      ? trimmedDescription + '...'
+      : trimmedDescription;
+
   return (
     <Marker
       key={eventApiId}
       anchor={{ x: 0.5, y: 1 }}
       coordinate={{ latitude, longitude }}
-      title={title}
-      description={description}
+      title={trimmedTitle}
+      description={trimmedDescription}
       style={{ width: 10 }}
       tracksViewChanges={true}
       onPress={(item) => {
@@ -87,6 +57,13 @@ function Map({ route }: IProps) {
     longitude: 0,
   });
   const { tripDetails } = useTripContext();
+
+  const LOCATION = {
+    latitude: tripDetails.latitude,
+    longitude: tripDetails.longitude,
+    latitudeDelta: 0.0922,
+    longitudeDelta: 0.041,
+  };
 
   async function getUserLocation() {
     try {
