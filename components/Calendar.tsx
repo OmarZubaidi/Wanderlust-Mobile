@@ -6,6 +6,7 @@ import { calendarStyles, colorStyles } from '../styles';
 import TripOverview from './TripOverview';
 import { calendarHelpers, formatEvents } from '../helpers';
 import { IEvent } from '../interfaces';
+import { useTripContext } from '../contexts';
 
 const EVENTS: IEvent[] = [
   {
@@ -106,6 +107,8 @@ interface IProps {
 }
 
 function Calendar({ navigation }: IProps) {
+  const { tripDetails } = useTripContext();
+
   useEffect(() => {
     (async () => {
       const { status } = await ExpoCalendar.requestCalendarPermissionsAsync();
@@ -114,14 +117,14 @@ function Calendar({ navigation }: IProps) {
           ExpoCalendar.EntityTypes.EVENT
         );
         // Create the calendar on the user's device to use reminders
-        if (!calendars.some((calendar) => calendar.title === 'Wanderlust'))
+        if (!calendars.some(calendar => calendar.title === 'Wanderlust'))
           calendarHelpers.createCalendar('Wanderlust');
       }
     })();
   }, []);
 
-  const events = formatEvents(EVENTS);
-
+  const events = formatEvents(tripDetails.Events);
+  // console.log(events);
   return (
     <>
       <TripOverview borderBottomColor={colorStyles.grey} />
@@ -129,12 +132,13 @@ function Calendar({ navigation }: IProps) {
         <Agenda
           items={events}
           // Initially selected day
-          selected={TRIP.start}
-          minDate={TRIP.start}
-          maxDate={TRIP.end}
+          selected={tripDetails.start}
+          minDate={tripDetails.start}
+          maxDate={tripDetails.end}
           pastScrollRange={0}
+          dayLoading={false}
           futureScrollRange={1}
-          renderItem={(item) => calendarHelpers.renderItem(item, navigation)}
+          renderItem={item => calendarHelpers.renderItem(item, navigation)}
           rowHasChanged={(r1, r2) => {
             return r1.name !== r2.name;
           }}

@@ -13,7 +13,7 @@ import { convertDateToDay, convertDateToTime } from '../helpers';
 import TripOverview from './TripOverview';
 import { FlightIcon } from './Icons';
 import Friends from './Friends';
-import { useTripContext, useUserContext } from '../contexts';
+import { useTripContext } from '../contexts';
 
 const FLIGHTS: IFlight[] = [
   {
@@ -45,8 +45,10 @@ const FRIENDS_IMAGES = [
 
 function flightRenderer(flight: IFlight) {
   const { lengthOfFlight } = flight;
+  const friends = flight.Users?.map(user => user.pictureUrl);
+
   const itinerary: IItinerary[] = JSON.parse(flight.itineraries);
-  return itinerary.map((flight) => {
+  return itinerary.map(flight => {
     const { departure, arrival, depAirport, arrAirport } = flight;
     const departureDate = new Date(departure);
     const departureDay = convertDateToDay(departureDate).split(' ').join('\n');
@@ -54,7 +56,6 @@ function flightRenderer(flight: IFlight) {
     const arrivalTime = convertDateToTime(new Date(arrival));
     const flightLength =
       lengthOfFlight.slice(2, -1).split('H').join('h ') + 'm';
-    //const users = flight.Users?.map(user => user.pictureUrl);
 
     return (
       <View
@@ -100,7 +101,7 @@ function flightRenderer(flight: IFlight) {
             {arrAirport}
           </Text>
         </View>
-        <Friends friends={FRIENDS_IMAGES} size={iconStyles.bigger} />
+        <Friends friends={friends} size={iconStyles.bigger} />
       </View>
     );
   });
@@ -108,15 +109,13 @@ function flightRenderer(flight: IFlight) {
 
 function Flight() {
   const { tripDetails } = useTripContext();
-  const { userDetails } = useUserContext();
-
   return (
     <>
       <TripOverview borderBottomColor={colorStyles.grey} />
       <View style={[styles.container]}>
         <FlatList
-          data={FLIGHTS}
-          keyExtractor={(item) => `${item.flightApiId}`}
+          data={tripDetails.Flights}
+          keyExtractor={item => `${item.id}`}
           renderItem={({ item }) => flightRenderer(item)}
         />
       </View>

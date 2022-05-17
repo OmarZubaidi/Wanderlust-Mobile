@@ -11,6 +11,7 @@ import {
 import Friends from './Friends';
 import { HotelIcon } from './Icons';
 import TripOverview from './TripOverview';
+import { useTripContext } from '../contexts';
 
 const HOTELS: IHotel[] = [
   {
@@ -57,7 +58,7 @@ function hotelRenderer(hotel: IHotel) {
   const departureDay = convertDateToDay(new Date(departure))
     .split(' ')
     .join('\n');
-
+  const friends = hotel.Users?.map(user => user.pictureUrl);
   return (
     <View style={[flightAndHotelStyles.container]}>
       <View style={[flightAndHotelStyles.horizontal]}>
@@ -106,19 +107,21 @@ function hotelRenderer(hotel: IHotel) {
           {name}
         </Text>
       </View>
-      <Friends friends={FRIENDS_IMAGES} size={iconStyles.bigger} />
+      <Friends friends={friends} size={iconStyles.bigger} />
     </View>
   );
 }
 
 function Hotel() {
+  const { tripDetails } = useTripContext();
+
   return (
     <>
       <TripOverview borderBottomColor={colorStyles.grey} />
       <View style={[styles.container]}>
         <FlatList
-          data={HOTELS}
-          keyExtractor={(item) => `${item.arrival}-${item.hotelApiId}`}
+          data={tripDetails.Hotels}
+          keyExtractor={item => `${item.arrival}-${item.hotelApiId}`}
           renderItem={({ item }) => hotelRenderer(item)}
         />
       </View>
