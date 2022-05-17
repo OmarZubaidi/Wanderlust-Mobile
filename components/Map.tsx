@@ -9,8 +9,8 @@ import ENV from '../config/env';
 import { useTripContext } from '../contexts';
 
 const LOCATION = {
-  latitude: 41.38894358473509,
-  longitude: 2.167669520768813,
+  latitude: 41.3949662,
+  longitude: 2.1977755,
   latitudeDelta: 0.0922,
   longitudeDelta: 0.041,
 };
@@ -63,7 +63,7 @@ function markerRenderer(event: IEvent) {
       description={description}
       style={{ width: 10 }}
       tracksViewChanges={true}
-      onPress={item => {
+      onPress={(item) => {
         console.log(item.nativeEvent.coordinate);
       }}
       icon={
