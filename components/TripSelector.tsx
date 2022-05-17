@@ -60,7 +60,6 @@ function TripSelector({ modalVisible, setModalVisible }: IProps) {
       animationType='slide'
       visible={modalVisible}
       onRequestClose={() => {
-        Alert.alert('Modal has been closed.');
         setModalVisible(!modalVisible);
       }}
     >
