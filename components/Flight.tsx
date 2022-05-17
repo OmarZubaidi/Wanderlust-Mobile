@@ -62,7 +62,7 @@ function flightRenderer(flight: IFlight) {
         key={`${depAirport}${arrAirport}`}
       >
         <View style={[flightAndHotelStyles.maxWidthSmaller]}>
-          <Text style={[flightAndHotelStyles.centerContent]}>
+          <Text style={[flightAndHotelStyles.centerContent, styles.font]}>
             {departureDay}
           </Text>
         </View>
@@ -72,12 +72,18 @@ function flightRenderer(flight: IFlight) {
             flightAndHotelStyles.dividerStart,
           ]}
         >
-          <Text style={[flightAndHotelStyles.innerText]}>{departureTime}</Text>
-          <Text style={[flightAndHotelStyles.innerText]}>{depAirport}</Text>
+          <Text style={[flightAndHotelStyles.innerText, styles.fontExtraLight]}>
+            {departureTime}
+          </Text>
+          <Text style={[flightAndHotelStyles.innerText, styles.fontExtraLight]}>
+            {depAirport}
+          </Text>
         </View>
         <View style={[flightAndHotelStyles.dividerMiddleFlight]} />
         <View style={[flightAndHotelStyles.centerContent]}>
-          <Text style={[flightAndHotelStyles.innerText]}>{flightLength}</Text>
+          <Text style={[flightAndHotelStyles.innerText, styles.fontExtraLight]}>
+            {flightLength}
+          </Text>
           <FlightIcon color={colorStyles.blue} />
         </View>
         <View style={[flightAndHotelStyles.dividerMiddleFlight]} />
@@ -87,8 +93,12 @@ function flightRenderer(flight: IFlight) {
             flightAndHotelStyles.dividerEnd,
           ]}
         >
-          <Text style={[flightAndHotelStyles.innerText]}>{arrivalTime}</Text>
-          <Text style={[flightAndHotelStyles.innerText]}>{arrAirport}</Text>
+          <Text style={[flightAndHotelStyles.innerText, styles.fontExtraLight]}>
+            {arrivalTime}
+          </Text>
+          <Text style={[flightAndHotelStyles.innerText, styles.fontExtraLight]}>
+            {arrAirport}
+          </Text>
         </View>
         <Friends friends={FRIENDS_IMAGES} size={iconStyles.bigger} />
       </View>
