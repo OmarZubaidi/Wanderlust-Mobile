@@ -1,7 +1,13 @@
 import React, { useState } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import { convertDateToDay } from '../helpers';
-import { iconStyles, styles, tripStyles } from '../styles';
+import {
+  iconStyles,
+  styles,
+  touchableStyles,
+  touchableStyles,
+  tripStyles,
+} from '../styles';
 import Friends from './Friends';
 import { useTripContext } from '../contexts';
 import { TripSelector } from '../components';
@@ -25,7 +31,10 @@ function TripOverview({ borderBottomColor }: IProps) {
         { borderBottomColor },
       ]}
     >
-      <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
+      <TouchableOpacity
+        activeOpacity={touchableStyles}
+        onPress={() => setModalVisible(!modalVisible)}
+      >
         <View style={[tripStyles.vertical]}>
           <Text
             style={[tripStyles.city, tripStyles.textColor, styles.fontBold]}

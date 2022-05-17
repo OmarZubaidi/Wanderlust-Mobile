@@ -11,7 +11,13 @@ import {
 import { useTripContext, useUserContext } from '../contexts';
 import { convertDateToDay } from '../helpers';
 import { ITrip } from '../interfaces';
-import { iconStyles, styles, tabStyles, tripStyles } from '../styles';
+import {
+  iconStyles,
+  styles,
+  tabStyles,
+  touchableStyles,
+  tripStyles,
+} from '../styles';
 import colors from '../styles/colors';
 import { CalendarIcon } from './Icons';
 
@@ -28,6 +34,7 @@ function TripSelector({ modalVisible, setModalVisible }: IProps) {
     const { id, destination, start, end } = trip;
     return (
       <TouchableOpacity
+        activeOpacity={touchableStyles}
         onPress={() => {
           fetchTripDetails(id!);
           setModalVisible(!modalVisible);
@@ -64,7 +71,10 @@ function TripSelector({ modalVisible, setModalVisible }: IProps) {
       }}
     >
       <View>
-        <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
+        <TouchableOpacity
+          activeOpacity={touchableStyles}
+          onPress={() => setModalVisible(!modalVisible)}
+        >
           <View style={[tripStyles.horizontal, tripStyles.separatorTitleView]}>
             <Image
               style={[
