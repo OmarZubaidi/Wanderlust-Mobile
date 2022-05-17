@@ -56,48 +56,45 @@ function TripSelector({ modalVisible, setModalVisible }: IProps) {
   }
 
   return (
-    <View>
-      <Modal
-        animationType='slide'
-        visible={modalVisible}
-        onRequestClose={() => {
-          Alert.alert('Modal has been closed.');
-          setModalVisible(!modalVisible);
-        }}
-      >
-        <View>
-          <View>
-            <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
-              <View
-                style={[tripStyles.horizontal, tripStyles.separatorTitleView]}
-              >
-                <Image
-                  style={{
-                    width: iconStyles.biggest,
-                    height: iconStyles.biggest,
-                    marginRight: -iconStyles.normal,
-                  }}
-                  source={require('../assets/icon.png')}
-                />
-                <View style={[tripStyles.marginLeft]}>
-                  <Text style={[styles.fontBold, tabStyles.tabBarItemStyle]}>
-                    {tabStyles.headerTitle}
-                  </Text>
-                </View>
-              </View>
-            </TouchableOpacity>
-            <FlatList
-              data={userDetails.Trips}
-              keyExtractor={(item) => `${item.id}`}
-              renderItem={({ item }) => tripRenderer(item)}
-              ItemSeparatorComponent={() => (
-                <View style={[tripStyles.separator]}></View>
-              )}
+    <Modal
+      animationType='slide'
+      visible={modalVisible}
+      onRequestClose={() => {
+        Alert.alert('Modal has been closed.');
+        setModalVisible(!modalVisible);
+      }}
+    >
+      <View>
+        <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
+          <View style={[tripStyles.horizontal, tripStyles.separatorTitleView]}>
+            <Image
+              style={[
+                {
+                  width: iconStyles.biggest,
+                  height: iconStyles.biggest,
+                  marginRight: -iconStyles.normal,
+                },
+                { marginTop: -2 },
+              ]}
+              source={require('../assets/icon.png')}
             />
+            <View style={[tripStyles.marginLeft]}>
+              <Text style={[tripStyles.separatorTitle, styles.fontBold]}>
+                {tabStyles.headerTitle}
+              </Text>
+            </View>
           </View>
-        </View>
-      </Modal>
-    </View>
+        </TouchableOpacity>
+        <FlatList
+          data={userDetails.Trips}
+          keyExtractor={(item) => `${item.id}`}
+          renderItem={({ item }) => tripRenderer(item)}
+          ItemSeparatorComponent={() => (
+            <View style={[tripStyles.separator]}></View>
+          )}
+        />
+      </View>
+    </Modal>
   );
 }
 

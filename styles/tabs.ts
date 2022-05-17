@@ -8,6 +8,7 @@ export default {
   },
   headerTitleStyle: {
     color: colors.navy,
+    fontFamily: 'Inter_700Bold',
     fontSize: 24,
   },
   tabBarStyle: {

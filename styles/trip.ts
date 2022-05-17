@@ -35,10 +35,11 @@ export default StyleSheet.create({
   },
   separatorTitleView: {
     ...tabs.headerStyle,
+    ...tabs.tabBarItemStyle,
     marginTop: 10,
   },
   marginLeft: {
-    marginLeft: 20,
+    marginLeft: 16,
   },
   horizontal: {
     flexDirection: 'row',
