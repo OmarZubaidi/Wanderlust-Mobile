@@ -5,4 +5,7 @@ export default StyleSheet.create({
     justifyContent: 'center',
     paddingRight: 15,
   },
+  headerRight: {
+    flexDirection: 'row',
+  },
 });
