@@ -1,42 +1,47 @@
 import React from 'react';
-import { FlatList, ImageBackground, Text, View } from 'react-native';
+import { FlatList, Text, View } from 'react-native';
 import { convertDateToDay } from '../helpers';
 import { IHotel } from '../interfaces';
 import {
   colorStyles,
   flightAndHotelStyles,
   iconStyles,
-  imageStyles,
   styles,
 } from '../styles';
 import Friends from './Friends';
 import { HotelIcon } from './Icons';
 import TripOverview from './TripOverview';
+import { useTripContext } from '../contexts';
 
-const HOTELS = [
+const HOTELS: IHotel[] = [
   {
     name: 'Teds Plaza',
     location: 'Austria',
-    coordinates: '123, 5678',
+    latitude: 123,
+    longitude: 5678,
     arrival: '2022-05-09T14:15:18.532Z',
     departure: '2022-05-14T14:15:18.532Z',
     nights: 5,
-    priceTotal: '303 €',
-    hotelApiId: 142,
-    userId: 14,
-    tripId: 1,
+    priceTotal: 303,
+    hotelApiId: '142',
+    description: 'Why hello there.',
+    type: 'hotel',
+    rating: '3',
   },
   {
     name: 'Grand Budapest Hotel',
     location: 'Austria',
-    coordinates: '567, 8123',
+    latitude: 567,
+    longitude: 8123,
     arrival: '2022-05-14T14:15:18.532Z',
     departure: '2022-05-19T14:15:18.532Z',
     nights: 5,
-    priceTotal: '404 €',
-    hotelApiId: 142,
-    userId: 15,
-    tripId: 2,
+    priceTotal: 404,
+    hotelApiId: '142',
+    description:
+      'Welcome to the hotel California! Such a lovely place, such a lovely place. Such a lovely face.',
+    type: 'hotel',
+    rating: '4.9',
   },
 ];
 
@@ -53,47 +58,73 @@ function hotelRenderer(hotel: IHotel) {
   const departureDay = convertDateToDay(new Date(departure))
     .split(' ')
     .join('\n');
-
+  const friends = hotel.Users?.map(user => user.pictureUrl);
   return (
     <View style={[flightAndHotelStyles.container]}>
-      <Text style={[flightAndHotelStyles.centerContent]}>{arrivalDay}</Text>
-      <View style={[flightAndHotelStyles.dividerMiddle]} />
-      <View style={[flightAndHotelStyles.centerContent]}>
-        <Text style={[flightAndHotelStyles.innerText]}>{nights} nights</Text>
-        <HotelIcon color={colorStyles.darkestBlue} />
-        <Text style={[flightAndHotelStyles.innerText]}>{name}</Text>
+      <View style={[flightAndHotelStyles.horizontal]}>
+        <View style={[flightAndHotelStyles.dividerEnd]}>
+          <Text
+            style={[
+              flightAndHotelStyles.centerContent,
+              flightAndHotelStyles.smallerText,
+              styles.font,
+            ]}
+          >
+            Check-in
+          </Text>
+          <Text style={[flightAndHotelStyles.centerContent, styles.font]}>
+            {arrivalDay}
+          </Text>
+        </View>
+        <View style={[flightAndHotelStyles.checkout]}>
+          <Text
+            style={[
+              flightAndHotelStyles.centerContent,
+              flightAndHotelStyles.smallerText,
+              styles.font,
+            ]}
+          >
+            Check-out
+          </Text>
+          <Text style={[flightAndHotelStyles.centerContent, styles.font]}>
+            {departureDay}
+          </Text>
+        </View>
       </View>
-      <View style={[flightAndHotelStyles.dividerMiddle]} />
-      <Text
+      <View style={[flightAndHotelStyles.dividerMiddleHotel]} />
+      <View
         style={[
           flightAndHotelStyles.centerContent,
           flightAndHotelStyles.dividerEnd,
+          flightAndHotelStyles.maxWidth,
         ]}
       >
-        {departureDay}
-      </Text>
-      <Friends friends={FRIENDS_IMAGES} size={iconStyles.bigger} />
+        <Text style={[flightAndHotelStyles.innerText, styles.fontExtraLight]}>
+          {nights} nights
+        </Text>
+        <HotelIcon color={colorStyles.blue} size={iconStyles.smaller} />
+        <Text style={[flightAndHotelStyles.innerText, styles.fontExtraLight]}>
+          {name}
+        </Text>
+      </View>
+      <Friends friends={friends} size={iconStyles.bigger} />
     </View>
   );
 }
 
 function Hotel() {
+  const { tripDetails } = useTripContext();
+
   return (
     <>
-      <ImageBackground
-        source={require('../assets/hotel.jpg')}
-        resizeMode='cover'
-        style={[imageStyles.background]}
-      >
-        <View style={[styles.container]}>
-          <FlatList
-            data={HOTELS}
-            keyExtractor={(item) => `${item.userId}-${item.tripId}`}
-            renderItem={({ item }) => hotelRenderer(item)}
-          />
-        </View>
-        <TripOverview />
-      </ImageBackground>
+      <TripOverview borderBottomColor={colorStyles.grey} />
+      <View style={[styles.container]}>
+        <FlatList
+          data={tripDetails.Hotels}
+          keyExtractor={item => `${item.arrival}-${item.hotelApiId}`}
+          renderItem={({ item }) => hotelRenderer(item)}
+        />
+      </View>
     </>
   );
 }

@@ -22,12 +22,10 @@ function AuthProvider({ children }: IProps) {
   });
 
   async function fetchUserDetails(accessToken: string) {
-    console.log(`fetchUserDetails(${accessToken})`);
     try {
       const response = await axios.get(
         `https://www.googleapis.com/oauth2/v3/userinfo?access_token=${accessToken}`
       );
-      console.log('fetchUserDetails got data', response.data);
       return {
         ...response.data,
         accessToken,
@@ -39,7 +37,16 @@ function AuthProvider({ children }: IProps) {
   }
 
   async function logout(accessToken: string) {
-    console.log(`logout(${accessToken})`);
+    if (!accessToken) {
+      setUserDetails({
+        email: null,
+        accessToken: null,
+        Trips: [],
+        pictureUrl: null,
+      });
+      if (response) response.authentication = null;
+      return;
+    }
     const headers = {
       'Content-type': 'application/x-www-form-urlencoded',
     };
@@ -48,9 +55,15 @@ function AuthProvider({ children }: IProps) {
         `https://oauth2.googleapis.com/revoke?token=${accessToken}`,
         { headers }
       );
-      setUserDetails({ email: null, accessToken: null });
+      response.authentication = null;
+      console.log(response); //find better way to remove response
+      setUserDetails({
+        email: null,
+        accessToken: null,
+        Trips: [],
+        pictureUrl: null,
+      });
     } catch (error: any) {
-      console.log('logout error', error);
       Alert.alert(
         'Error',
         'There was a problem logging out. Please try again.'
@@ -58,25 +71,21 @@ function AuthProvider({ children }: IProps) {
     }
   }
 
-  async function login() {
-    console.log('login()');
-    await promptAsync();
+  async function googleLogin() {
     if (response && response.authentication) {
       if (response.type === 'success') {
         const accessToken = response.authentication.accessToken;
         try {
-          const user = await fetchUserDetails(accessToken);
-          console.log('login get details', user);
+          const googleUser = await fetchUserDetails(accessToken);
           const result = await axios.get(
-            `https://api-wanderlust-dogs.herokuapp.com/users/email/${user.email}`
+            `${ENV.apiUrl}/users/email/${googleUser.email}`
           );
-          setUserDetails(user);
-          console.log('login got details', userDetails);
+          const user = await axios.get(`${ENV.apiUrl}/users/${result.data.id}`);
+          setUserDetails(user.data);
         } catch (error: any) {
-          console.log('login error', error);
           Alert.alert(
             'Login Error',
-            'Please register in the browser or login with a valid user. If you already have an account, please try again.'
+            'Please register in the browser or login with a valid user.'
           );
           logout(response.authentication.accessToken);
         }
@@ -89,7 +98,7 @@ function AuthProvider({ children }: IProps) {
     request,
     response,
     promptAsync,
-    login,
+    googleLogin,
     logout,
   };
 

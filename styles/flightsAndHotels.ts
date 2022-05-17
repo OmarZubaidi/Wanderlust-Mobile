@@ -5,34 +5,55 @@ export default StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'row',
-    backgroundColor: colors.greyishSkyBlue,
-    padding: 10,
+    backgroundColor: colors.white,
+    padding: 5,
     marginVertical: 10,
     alignItems: 'center',
     justifyContent: 'space-between',
-    borderRadius: 15,
+  },
+  horizontal: {
+    flexDirection: 'row',
+  },
+  maxWidth: {
+    width: 100,
+  },
+  maxWidthSmaller: {
+    width: 30,
+  },
+  checkout: {
+    paddingLeft: 10,
   },
   centerContent: {
     justifyContent: 'center',
     alignItems: 'center',
     textAlign: 'center',
   },
+  innerText: {
+    fontSize: 12,
+    paddingVertical: 5,
+    textAlign: 'center',
+  },
+  smallerText: {
+    fontSize: 8,
+  },
   dividerStart: {
-    borderLeftWidth: 0.5,
+    borderLeftWidth: 1,
     borderLeftColor: colors.grey,
     paddingLeft: 10,
   },
   dividerEnd: {
-    borderRightWidth: 0.5,
+    borderRightWidth: 1,
     borderRightColor: colors.grey,
     paddingRight: 10,
   },
-  dividerMiddle: {
-    borderBottomWidth: 0.5,
+  dividerMiddleFlight: {
+    borderBottomWidth: 1,
     borderBottomColor: colors.grey,
     paddingHorizontal: 5,
   },
-  innerText: {
-    fontWeight: '200',
+  dividerMiddleHotel: {
+    borderBottomWidth: 1,
+    borderBottomColor: colors.grey,
+    paddingHorizontal: 30,
   },
 });

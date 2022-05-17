@@ -1,6 +1,9 @@
 import React from 'react';
-import { TouchableOpacity } from 'react-native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Image, View, TouchableOpacity } from 'react-native';
+import {
+  BottomTabNavigationOptions,
+  createBottomTabNavigator,
+} from '@react-navigation/bottom-tabs';
 import {
   CalendarScreen,
   FlightScreen,
@@ -14,47 +17,67 @@ import {
   LogoutIcon,
   MapIcon,
 } from './components/Icons';
-import { colorStyles, logoutStyles, tabStyles } from './styles';
+import {
+  colorStyles,
+  iconStyles,
+  logoutStyles,
+  tabStyles,
+  touchableStyles,
+} from './styles';
 import { useAuthContext, useUserContext } from './contexts';
+import { RouteProp, ParamListBase } from '@react-navigation/native';
 
 const BottomTabs = createBottomTabNavigator();
 
 interface IOptionsProps {
-  route: {
-    name: 'Calendar' | 'Map' | 'Flight' | 'Hotel';
-  };
-}
-
-interface ITabProps {
-  color: 'string';
+  route: RouteProp<ParamListBase, string>;
 }
 
 function Tabs() {
   const { logout } = useAuthContext();
   const { userDetails } = useUserContext();
 
-  function options({ route }: IOptionsProps) {
+  function options({ route }: IOptionsProps): BottomTabNavigationOptions {
     return {
       ...tabStyles,
-      tabBarIcon: ({ color }: ITabProps) => {
+      tabBarIcon: ({ color }) => {
         switch (route.name) {
           case 'Calendar':
-            return <CalendarIcon color={color} />;
+            return <CalendarIcon color={color} size={iconStyles.bigger} />;
           case 'Map':
-            return <MapIcon color={color} />;
+            return <MapIcon color={color} size={iconStyles.bigger} />;
           case 'Flight':
-            return <FlightIcon color={color} />;
+            return <FlightIcon color={color} size={iconStyles.bigger} />;
           case 'Hotel':
-            return <HotelIcon color={color} />;
+            return <HotelIcon color={color} size={iconStyles.bigger} />;
         }
       },
+      // TODO add logo
+      // headerLeft: () => (
+      //   <Image
+      //     style={{ width: 40, height: 40, marginRight: -20 }}
+      //     source={require('./assets/icon.png')}
+      //   />
+      // ),
       headerRight: () => (
-        <TouchableOpacity
-          onPress={() => logout(userDetails.accessToken)}
-          style={logoutStyles.logout}
-        >
-          <LogoutIcon color={colorStyles.grey} />
-        </TouchableOpacity>
+        <View style={logoutStyles.headerRight}>
+          <Image
+            source={{ uri: userDetails.pictureUrl }}
+            style={{
+              width: 30,
+              height: 30,
+              borderRadius: 30,
+              marginRight: 10,
+            }}
+          />
+          <TouchableOpacity
+            activeOpacity={touchableStyles}
+            onPress={() => logout(userDetails.accessToken)}
+            style={logoutStyles.logout}
+          >
+            <LogoutIcon color={colorStyles.navy} />
+          </TouchableOpacity>
+        </View>
       ),
     };
   }

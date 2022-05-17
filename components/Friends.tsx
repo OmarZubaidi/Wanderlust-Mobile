@@ -1,6 +1,6 @@
 import React from 'react';
 import { Image, Text, View } from 'react-native';
-import { friendStyles } from '../styles';
+import { friendStyles, styles } from '../styles';
 
 interface IProps {
   friends: string[];
@@ -21,7 +21,9 @@ function Friends({ friends, size }: IProps) {
         },
       ]}
     >
-      {numberOfFriends > 5 && <Text style={[friendStyles.more]}>+</Text>}
+      {numberOfFriends > 5 && (
+        <Text style={[friendStyles.more, styles.font]}>+</Text>
+      )}
       {/* Update key later depending on downloaded data */}
       {displayedFriends.map((friend, index) => {
         return (

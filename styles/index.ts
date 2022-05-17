@@ -5,10 +5,12 @@ import flightAndHotelStyles from './flightsAndHotels';
 import friendStyles from './friends';
 import iconStyles from './icons';
 import imageStyles from './images';
+import loginStyles from './login';
 import logoutStyles from './logout';
-import * as mapStyles from './maps';
+import mapStyles from './maps';
 import navigationStyles from './navigation';
 import tabStyles from './tabs';
+import touchableStyles from './touchables';
 import tripOverviewStyles from './tripOverview';
 
 export {
@@ -19,9 +21,11 @@ export {
   friendStyles,
   iconStyles,
   imageStyles,
+  loginStyles,
   logoutStyles,
   mapStyles,
   navigationStyles,
   tabStyles,
+  touchableStyles,
   tripOverviewStyles,
 };

@@ -1,12 +1,20 @@
-export default interface IFlight {
+import { IUser, IUsersOnHotels } from '.';
+
+export default interface IHotel {
+  id?: number;
   name: string;
   location: string;
-  coordinates: string;
-  arrival: string;
-  departure: string;
+  latitude: number;
+  longitude: number;
+  arrival: string; // TODO Change to Date and refactor helpers
+  departure: string; // TODO Change to Date and refactor helpers
   nights: number;
-  priceTotal: string;
-  hotelApiId: number;
-  userId: number;
-  tripId: number;
+  priceTotal: number;
+  hotelApiId: string;
+  createdAt?: string; // TODO Change to Date and refactor helpers
+  UsersOnHotels?: IUsersOnHotels[];
+  Users?: IUser[];
+  description: string;
+  rating: string;
+  type: string;
 }

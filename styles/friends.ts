@@ -8,10 +8,11 @@ export default StyleSheet.create({
   },
   photo: {
     position: 'relative',
+    borderRadius: 50,
   },
   more: {
     alignSelf: 'center',
     paddingHorizontal: 3,
-    color: colors.darkestBlue,
+    color: colors.navy,
   },
 });

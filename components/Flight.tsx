@@ -1,44 +1,38 @@
 import React from 'react';
-import { FlatList, ImageBackground, Text, View } from 'react-native';
+import { FlatList, Text, View } from 'react-native';
 import 'intl';
 import 'intl/locale-data/jsonp/en';
 import {
   colorStyles,
   flightAndHotelStyles,
   iconStyles,
-  imageStyles,
   styles,
 } from '../styles';
-import { IFlight } from '../interfaces';
+import { IFlight, IItinerary } from '../interfaces';
 import { convertDateToDay, convertDateToTime } from '../helpers';
 import TripOverview from './TripOverview';
 import { FlightIcon } from './Icons';
 import Friends from './Friends';
+import { useTripContext } from '../contexts';
 
-const FLIGHTS = [
+const FLIGHTS: IFlight[] = [
   {
-    departure: '2022-05-30T00:00:00.000Z',
-    arrival: '2022-05-30T02:00:00.000Z',
-    gate: 'B',
-    depAirport: 'London',
-    arrAirport: 'Barcelona',
-    lengthOfFlight: '2:30 h',
-    price: '230 €',
+    departureCity: 'London',
+    arrivalCity: 'Barcelona',
+    lengthOfFlight: 'PT1H45M',
+    price: 230,
     flightApiId: 1234,
-    userId: 16,
-    tripId: 2,
+    itineraries:
+      '[{"depAirport":"LHR","arrAirport":"BCN","depTerminal":"1","arrTerminal":"3","departure":"2022-05-30T11:30:00","arrival":"2022-05-30T13:15:00"}]',
   },
   {
-    departure: '2022-06-10T00:00:00.000Z',
-    arrival: '2022-06-10T02:00:00.000Z',
-    gate: 'A',
-    depAirport: 'Barcelona',
-    arrAirport: 'London',
-    lengthOfFlight: '2:30 h',
-    price: '230 €',
+    departureCity: 'Barcelona',
+    arrivalCity: 'London',
+    lengthOfFlight: 'PT1H45M',
+    price: 230,
     flightApiId: 1235,
-    userId: 16,
-    tripId: 3,
+    itineraries:
+      '[{"depAirport":"BCN","arrAirport":"LHR","depTerminal":"3","arrTerminal":"1","departure":"2022-06-02T08:30:00","arrival":"2022-06-02T11:00:00"}]',
   },
 ];
 
@@ -50,62 +44,81 @@ const FRIENDS_IMAGES = [
 ];
 
 function flightRenderer(flight: IFlight) {
-  const { departure, arrival, depAirport, arrAirport, lengthOfFlight } = flight;
-  const departureDate = new Date(departure);
-  const departureDay = convertDateToDay(departureDate).split(' ').join('\n');
-  const departureTime = convertDateToTime(departureDate);
-  const arrivalTime = convertDateToTime(new Date(arrival));
-  const flightLength = lengthOfFlight.split(' ')[0].split(':').join('h ') + 'm';
+  const { lengthOfFlight } = flight;
+  const friends = flight.Users?.map(user => user.pictureUrl);
 
-  return (
-    <View style={[flightAndHotelStyles.container]}>
-      <Text style={[flightAndHotelStyles.centerContent]}>{departureDay}</Text>
+  const itinerary: IItinerary[] = JSON.parse(flight.itineraries);
+  return itinerary.map(flight => {
+    const { departure, arrival, depAirport, arrAirport } = flight;
+    const departureDate = new Date(departure);
+    const departureDay = convertDateToDay(departureDate).split(' ').join('\n');
+    const departureTime = convertDateToTime(departureDate);
+    const arrivalTime = convertDateToTime(new Date(arrival));
+    const flightLength =
+      lengthOfFlight.slice(2, -1).split('H').join('h ') + 'm';
+
+    return (
       <View
-        style={[
-          flightAndHotelStyles.centerContent,
-          flightAndHotelStyles.dividerStart,
-        ]}
+        style={[flightAndHotelStyles.container]}
+        key={`${depAirport}${arrAirport}`}
       >
-        <Text style={[flightAndHotelStyles.innerText]}>{departureTime}</Text>
-        <Text style={[flightAndHotelStyles.innerText]}>{depAirport}</Text>
+        <View style={[flightAndHotelStyles.maxWidthSmaller]}>
+          <Text style={[flightAndHotelStyles.centerContent, styles.font]}>
+            {departureDay}
+          </Text>
+        </View>
+        <View
+          style={[
+            flightAndHotelStyles.centerContent,
+            flightAndHotelStyles.dividerStart,
+          ]}
+        >
+          <Text style={[flightAndHotelStyles.innerText, styles.fontExtraLight]}>
+            {departureTime}
+          </Text>
+          <Text style={[flightAndHotelStyles.innerText, styles.fontExtraLight]}>
+            {depAirport}
+          </Text>
+        </View>
+        <View style={[flightAndHotelStyles.dividerMiddleFlight]} />
+        <View style={[flightAndHotelStyles.centerContent]}>
+          <Text style={[flightAndHotelStyles.innerText, styles.fontExtraLight]}>
+            {flightLength}
+          </Text>
+          <FlightIcon color={colorStyles.blue} />
+        </View>
+        <View style={[flightAndHotelStyles.dividerMiddleFlight]} />
+        <View
+          style={[
+            flightAndHotelStyles.centerContent,
+            flightAndHotelStyles.dividerEnd,
+          ]}
+        >
+          <Text style={[flightAndHotelStyles.innerText, styles.fontExtraLight]}>
+            {arrivalTime}
+          </Text>
+          <Text style={[flightAndHotelStyles.innerText, styles.fontExtraLight]}>
+            {arrAirport}
+          </Text>
+        </View>
+        <Friends friends={friends} size={iconStyles.bigger} />
       </View>
-      <View style={[flightAndHotelStyles.dividerMiddle]} />
-      <View style={[flightAndHotelStyles.centerContent]}>
-        <Text style={[flightAndHotelStyles.innerText]}>{flightLength}</Text>
-        <FlightIcon color={colorStyles.darkestBlue} />
-      </View>
-      <View style={[flightAndHotelStyles.dividerMiddle]} />
-      <View
-        style={[
-          flightAndHotelStyles.centerContent,
-          flightAndHotelStyles.dividerEnd,
-        ]}
-      >
-        <Text style={[flightAndHotelStyles.innerText]}>{arrivalTime}</Text>
-        <Text style={[flightAndHotelStyles.innerText]}>{arrAirport}</Text>
-      </View>
-      <Friends friends={FRIENDS_IMAGES} size={iconStyles.bigger} />
-    </View>
-  );
+    );
+  });
 }
 
 function Flight() {
+  const { tripDetails } = useTripContext();
   return (
     <>
-      <ImageBackground
-        source={require('../assets/flight.jpg')}
-        resizeMode='cover'
-        style={[imageStyles.background]}
-      >
-        <View style={[styles.container]}>
-          <FlatList
-            data={FLIGHTS}
-            keyExtractor={(item) => `${item.userId}-${item.tripId}`}
-            renderItem={({ item }) => flightRenderer(item)}
-          />
-        </View>
-        <TripOverview />
-      </ImageBackground>
+      <TripOverview borderBottomColor={colorStyles.grey} />
+      <View style={[styles.container]}>
+        <FlatList
+          data={tripDetails.Flights}
+          keyExtractor={item => `${item.id}`}
+          renderItem={({ item }) => flightRenderer(item)}
+        />
+      </View>
     </>
   );
 }
