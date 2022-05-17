@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import { convertDateToDay } from '../helpers';
-import { iconStyles, styles, tripOverviewStyles } from '../styles';
+import { iconStyles, styles, tripStyles } from '../styles';
 import Friends from './Friends';
 import { useTripContext } from '../contexts';
-import { TripSelector } from '../screens';
+import { TripSelector } from '../components';
 interface IProps {
   borderBottomColor: string;
 }
@@ -13,36 +13,34 @@ function TripOverview({ borderBottomColor }: IProps) {
   const { tripDetails } = useTripContext();
   const tripStart = convertDateToDay(new Date(tripDetails.start));
   const tripEnd = convertDateToDay(new Date(tripDetails.end));
-  const friends = tripDetails.Users?.map((user) => user.pictureUrl);
+  const friends = tripDetails.Users
+    ? tripDetails.Users?.map((user) => user.pictureUrl)
+    : [];
   const [modalVisible, setModalVisible] = useState(false);
   return (
     <View
       style={[
-        tripOverviewStyles.container,
-        tripOverviewStyles.bottomBorder,
+        tripStyles.container,
+        tripStyles.bottomBorder,
         { borderBottomColor },
       ]}
     >
-      <TripSelector
-        modalVisible={modalVisible}
-        setModalVisible={setModalVisible}
-      />
       <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
-        <View style={[tripOverviewStyles.vertical]}>
+        <View style={[tripStyles.vertical]}>
           <Text
-            style={[
-              tripOverviewStyles.city,
-              tripOverviewStyles.textColor,
-              styles.fontBold,
-            ]}
+            style={[tripStyles.city, tripStyles.textColor, styles.fontBold]}
           >
             {tripDetails.destination}
           </Text>
-          <Text style={[tripOverviewStyles.textColor, styles.font]}>
+          <Text style={[tripStyles.textColor, styles.font]}>
             {tripStart} - {tripEnd}
           </Text>
         </View>
       </TouchableOpacity>
+      <TripSelector
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+      />
       <View>
         <Friends friends={friends} size={iconStyles.biggest} />
       </View>

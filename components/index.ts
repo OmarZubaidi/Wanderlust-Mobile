@@ -6,5 +6,16 @@ import Login from './Login';
 import Main from './Main';
 import Map from './Map';
 import TripOverview from './TripOverview';
+import TripSelector from './TripSelector';
 
-export { Calendar, Flight, Friends, Hotel, Login, Main, Map, TripOverview };
+export {
+  Calendar,
+  Flight,
+  Friends,
+  Hotel,
+  Login,
+  Main,
+  Map,
+  TripOverview,
+  TripSelector,
+};

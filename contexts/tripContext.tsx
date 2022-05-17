@@ -21,11 +21,13 @@ export const emptyTrip = {
 interface ITripContext {
   tripDetails: ITrip;
   setTripDetails: (userDetails: ITrip) => void;
+  fetchTripDetails: (id: number) => void;
 }
 
 const TripContext = createContext<ITripContext>({
   tripDetails: emptyTrip,
   setTripDetails: () => {},
+  fetchTripDetails: (id: number) => {},
 });
 
 export function useTripContext() {
@@ -51,15 +53,21 @@ export const TripProvider = (props: any) => {
     ).sort(
       (tripA, tripB) => Date.parse(tripA.start) - Date.parse(tripB.start)
     )[0];
-    const tripId = nextTrip?.id;
+    if (nextTrip?.id) fetchTripDetails(nextTrip.id);
+  }
+
+  function fetchTripDetails(id: number) {
     axios
-      .get(`${ENV.apiUrl}/trips/${tripId}`)
+      .get(`${ENV.apiUrl}/trips/${id}`)
       .then((response) => setTripDetails(response.data))
       .catch((error) => Alert.alert(error));
   }
 
   return (
-    <TripContext.Provider value={{ tripDetails, setTripDetails }} {...props} />
+    <TripContext.Provider
+      value={{ tripDetails, setTripDetails, fetchTripDetails }}
+      {...props}
+    />
   );
 };
 
