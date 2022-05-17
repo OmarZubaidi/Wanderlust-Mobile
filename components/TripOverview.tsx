@@ -1,13 +1,7 @@
 import React, { useState } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import { convertDateToDay } from '../helpers';
-import {
-  iconStyles,
-  styles,
-  touchableStyles,
-  touchableStyles,
-  tripStyles,
-} from '../styles';
+import { iconStyles, styles, touchableStyles, tripStyles } from '../styles';
 import Friends from './Friends';
 import { useTripContext } from '../contexts';
 import { TripSelector } from '../components';

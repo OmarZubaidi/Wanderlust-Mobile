@@ -39,6 +39,8 @@ function markerRenderer(event: IEvent) {
           ? require('../assets/markerRestaurant.png')
           : type === 'HOTEL'
           ? require('../assets/markerHotel.png')
+          : type === 'FLIGHT'
+          ? require('../assets/markerFlight.png')
           : require('../assets/markerEvent.png')
       }
     />
