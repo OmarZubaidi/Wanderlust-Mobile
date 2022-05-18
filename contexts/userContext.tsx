@@ -1,35 +1,36 @@
-import React, { useContext, useState } from 'react';
+import React, { createContext, useContext, useState } from 'react';
+import { IUserWithToken } from '../interfaces';
 
-const UserContext = React.createContext<any>({
-  email: null,
-  id: null,
-  username: null,
+export const emptyUser: IUserWithToken = {
+  email: '',
+  id: undefined,
+  username: '',
   Trips: [],
-  accessToken: null,
+  accessToken: '',
+  sub: '',
+  pictureUrl: '',
+  emailVerified: false,
+};
+
+interface IUserContext {
+  userDetails: IUserWithToken;
+  setUserDetails: (userDetails: IUserWithToken) => void;
+}
+
+const UserContext = createContext<IUserContext>({
+  userDetails: emptyUser,
+  setUserDetails: () => {},
 });
 
 export function useUserContext() {
   return useContext(UserContext);
 }
 
-interface IProps {
-  children: any;
-}
+export const UserProvider = (props: any) => {
+  const [userDetails, setUserDetails] = useState<IUserWithToken>(emptyUser);
 
-export const UserProvider = ({ children }: IProps) => {
-  const [userDetails, setUserDetails] = useState<any>({
-    email: null,
-    id: null,
-    username: null,
-    Trips: [],
-    accessToken: null,
-  });
-
-  const value = { userDetails, setUserDetails };
   return (
-    <UserContext.Provider value={value}>
-      <>{children}</>
-    </UserContext.Provider>
+    <UserContext.Provider value={{ userDetails, setUserDetails }} {...props} />
   );
 };
 
